@@ -14,9 +14,9 @@ namespace VnXGlobalSystems.Database
         public static async void OnResourceStart()
         {
             string host = "5.180.66.146";
-            string user = "VenoXVGlobalSystems";
-            string pass = "n9Cc~5j5q04f6K%d75Leak9";
-            string db = "VenoXVGlobalSystems";
+            string user = "VenoXV_Global_Systems";
+            string pass = "ri@75Cl03?Y9ul6dp26l_Ud8";
+            string db = "VenoXV_Global_Systems";
             connectionString = "SERVER=" + host + "; DATABASE=" + db + "; UID=" + user + "; PASSWORD=" + pass + "; SSLMODE=none;";
 
             await Task.Run(async () =>
