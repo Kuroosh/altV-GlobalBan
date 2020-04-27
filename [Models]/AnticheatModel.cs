@@ -1,4 +1,4 @@
-﻿namespace VenoX_Global_Systems._Models_
+﻿namespace VnXGlobalSystems.Models
 {
     public class AnticheatModel
     {

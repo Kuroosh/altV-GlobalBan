@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace VenoX_Global_Systems._Models_
+namespace VnXGlobalSystems.Models
 {
     public class PlayerModel : Player
     {
@@ -26,7 +26,7 @@ namespace VenoX_Global_Systems._Models_
                 Weapons = new List<AltV.Net.Enums.WeaponModel>();
                 DiscordID = "";
             }
-            catch (Exception ex) { _Core_.Debug.CatchExceptions("PlayerModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
         }
     }
     public class MyPlayerFactory : IEntityFactory<IPlayer>
@@ -37,7 +37,7 @@ namespace VenoX_Global_Systems._Models_
             {
                 return new PlayerModel(playerPointer, id);
             }
-            catch (Exception ex) { _Core_.Debug.CatchExceptions("PlayerFactory:Create", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerFactory:Create", ex); return null; }
         }
     }
 }

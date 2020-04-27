@@ -2,9 +2,9 @@
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VenoX_Global_Systems._Models_;
+using VnXGlobalSystems.Models;
 
-namespace VenoX_Global_Systems._Database_
+namespace VnXGlobalSystems.Database
 {
     public class Main
     {
@@ -14,9 +14,9 @@ namespace VenoX_Global_Systems._Database_
         public static async void OnResourceStart()
         {
             string host = "5.180.66.146";
-            string user = "VenoXV_Global_Systems";
-            string pass = "n9Cc~5j5q04f6K%d7_5Leak9";
-            string db = "VenoXV_Global_Systems";
+            string user = "VenoXVGlobalSystems";
+            string pass = "n9Cc~5j5q04f6K%d75Leak9";
+            string db = "VenoXVGlobalSystems";
             connectionString = "SERVER=" + host + "; DATABASE=" + db + "; UID=" + user + "; PASSWORD=" + pass + "; SSLMODE=none;";
 
             await Task.Run(async () =>

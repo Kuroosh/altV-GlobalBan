@@ -1,24 +1,24 @@
 ﻿using MySql.Data.MySqlClient;
 
-namespace VenoX_Global_Systems._Models_
+namespace VnXGlobalSystems.Models
 {
     public class GlobalBanModel
     {
-        public string Player_UID { get; set; }
-        public string Player_Name { get; set; }
-        public string Player_HardwareId { get; set; }
-        public string Player_HardwareIdExHash { get; set; }
-        public string Player_SocialClubId { get; set; }
-        public string Player_DiscordID { get; set; }
+        public string PlayerUID { get; set; }
+        public string PlayerName { get; set; }
+        public string PlayerHardwareId { get; set; }
+        public string PlayerHardwareIdExHash { get; set; }
+        public string PlayerSocialClubId { get; set; }
+        public string PlayerDiscordID { get; set; }
 
         public GlobalBanModel(MySqlDataReader reader)
         {
-            Player_UID = reader.GetString("UID");
-            Player_Name = reader.GetString("Name");
-            Player_HardwareId = reader.GetString("HardwareIdHash");
-            Player_HardwareIdExHash = reader.GetString("HardwareIdExHash");
-            Player_SocialClubId = reader.GetString("SocialClubId");
-            Player_DiscordID = reader.GetString("DiscordID");
+            PlayerUID = reader.GetString("UID");
+            PlayerName = reader.GetString("Name");
+            PlayerHardwareId = reader.GetString("HardwareIdHash");
+            PlayerHardwareIdExHash = reader.GetString("HardwareIdExHash");
+            PlayerSocialClubId = reader.GetString("SocialClubId");
+            PlayerDiscordID = reader.GetString("DiscordID");
         }
     }
 }

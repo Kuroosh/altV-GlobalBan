@@ -2,9 +2,9 @@
 using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using System.Collections.Generic;
-using VenoX_Global_Systems._Models_;
+using VnXGlobalSystems.Models;
 
-namespace VenoX_Global_Systems
+namespace VnXGlobalSystems
 {
     internal class VenoXResource : AsyncResource
     {
@@ -14,11 +14,11 @@ namespace VenoX_Global_Systems
         }
         public override void OnStart()
         {
-            _Globals_.Events.OnResourceStart();
+            Globals.Events.OnResourceStart();
         }
         public override void OnStop()
         {
-            _Globals_.Events.OnResourceStop();
+            Globals.Events.OnResourceStop();
         }
     }
     public class Main

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace VenoX_Global_Systems._Core_
+namespace VnXGlobalSystems.Core
 {
     public class Debug
     {
-        public static bool DEBUG_MODE_ENABLED = true;
+        public static bool DEBUGMODEENABLED = true;
         public static void OutputDebugString(string text)
         {
             try
             {
-                if (!DEBUG_MODE_ENABLED) { return; }
+                if (!DEBUGMODEENABLED) { return; }
                 Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | : " + text);
             }
             catch { }
@@ -18,7 +18,7 @@ namespace VenoX_Global_Systems._Core_
 
         public static void CatchExceptions(string FunctionName, Exception ex)
         {
-            if (!DEBUG_MODE_ENABLED) { return; }
+            if (!DEBUGMODEENABLED) { return; }
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.Message);
             Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.StackTrace);
