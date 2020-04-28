@@ -1,16 +1,17 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using System;
 using System.Numerics;
+using System.Threading;
 using VnXGlobalSystems.Models;
 
 namespace VnXGlobalSystems.Globals
 {
-    public class Events
+    public class Events : IScript
     {
         ////////////////////////// Resource Start/Stop /////////////////////////////////////////////////////////
         public static void OnResourceStart()
         {
+            Functions.timer = new Timer(Functions.OnUpdate, null, Constants.UPDATEINTERVAL, Constants.UPDATEINTERVAL);
             Functions.LoadMainFunctions();
             Database.Main.OnResourceStart();
         }
@@ -21,12 +22,13 @@ namespace VnXGlobalSystems.Globals
 
         ////////////////////////// Player Events /////////////////////////////////////////////////////////
         [ScriptEvent(ScriptEventType.PlayerConnect)]
-        public static void OnPlayerConnect(PlayerModel player)
+        public static void OnPlayerConnect(PlayerModel player, string reason)
         {
             try
             {
-                Main.ConnectedPlayers.Add(player);
                 player.Emit("VnXGlobalSystemsClient:GetDiscordID");
+                Functions.CheckPlayerGlobalBans(player);
+                Main.ConnectedPlayers.Add(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerConnect", ex); }
         }
@@ -46,6 +48,7 @@ namespace VnXGlobalSystems.Globals
             try
             {
                 player.DiscordID = DiscordID;
+                Core.Debug.OutputDebugString("Discord ID [" + player.Name + "] : " + DiscordID);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("UpdateDiscordInfo", ex); }
         }
@@ -66,32 +69,32 @@ namespace VnXGlobalSystems.Globals
     }
     public static class EventFunctions
     {
-        public static void Log(this IPlayer player, string text)
+        public static void Log(this PlayerModel player, string text)
         {
-            try { player.Emit(text); }
+            try { player.Emit("VnXGlobalSystemsClient:Log", text); }
             catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:Log", ex); }
         }
-        public static void GivePlayerWeapon(this IPlayer player, uint WeaponHash, byte ammo, bool selectWeapon)
+        public static void GivePlayerWeapon(this PlayerModel player, uint WeaponHash, byte ammo, bool selectWeapon)
         {
             try { player.GiveWeapon(WeaponHash, ammo, selectWeapon); }
             catch (Exception ex) { Core.Debug.CatchExceptions("GivePlayerWeapon", ex); }
         }
 
-        public static void RemovePlayerWeapon(this IPlayer player, uint WeaponHash)
+        public static void RemovePlayerWeapon(this PlayerModel player, uint WeaponHash)
         {
             try { player.RemoveWeapon(WeaponHash); }
             catch (Exception ex) { Core.Debug.CatchExceptions("RemovePlayerWeapon", ex); }
         }
 
-        public static void RemoveAllPlayerWeapon(this IPlayer player)
+        public static void RemoveAllPlayerWeapon(this PlayerModel player)
         {
             try { player.RemoveAllWeapons(); }
             catch (Exception ex) { Core.Debug.CatchExceptions("RemoveAllPlayerWeapon", ex); }
         }
 
-        public static void Position(this IPlayer player, Vector3 position)
+        public static void Position(this PlayerModel player, Vector3 position)
         {
-            try { player.Position = position; }
+            try { player.LastPosition = position; player.Position = position; }
             catch (Exception ex) { Core.Debug.CatchExceptions("Position", ex); }
         }
     }

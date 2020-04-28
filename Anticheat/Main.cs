@@ -6,6 +6,18 @@ namespace VnXGlobalSystems.Anticheat
 {
     public class Main
     {
+        private static int GetMaxTeleportVehicleDistance(PlayerModel player)
+        {
+            try
+            {
+                if (Constants.Helicopter.Contains((AltV.Net.Enums.VehicleModel)player.Vehicle.Model) || Constants.Planes.Contains((AltV.Net.Enums.VehicleModel)player.Vehicle.Model))
+                {
+                    return Constants.TELEPORT_KICK_FLYVEHICLE;
+                }
+                else { return Constants.TELEPORT_KICK_VEHICLE; }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("GetMaxTeleportVehicleDistance", ex); return Constants.TELEPORT_KICK_VEHICLE; }
+        }
         public static void AntiNoRagdoll(PlayerModel playerClass)
         {
             if (!Functions.AnticheatModel.AntiNoRagdoll) { return; }
@@ -43,8 +55,9 @@ namespace VnXGlobalSystems.Anticheat
             {
                 if (playerClass.IsInVehicle)
                 {
-                    if (playerClass.Position.Distance(playerClass.LastPosition) > 50)
+                    if (playerClass.Position.Distance(playerClass.LastPosition) > GetMaxTeleportVehicleDistance(playerClass))
                     {
+                        Core.Debug.OutputDebugString(playerClass.Name + " is in a Vehicle. Distance : " + playerClass.Position.Distance(playerClass.LastPosition));
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Vehicle-Teleport-Anticheat!");
                         Console.ResetColor();
@@ -55,11 +68,12 @@ namespace VnXGlobalSystems.Anticheat
                 }
                 else
                 {
-                    if (playerClass.Position.Distance(playerClass.LastPosition) > 20)
+                    if (playerClass.Position.Distance(playerClass.LastPosition) > Constants.TELEPORT_KICK_FOOT)
                     {
                         if (playerClass.Position.Z < 150)
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
+                            Core.Debug.OutputDebugString(playerClass.Name + " is on foot. Distance : " + playerClass.Position.Distance(playerClass.LastPosition));
                             Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Teleport-Anticheat!");
                             Console.ResetColor();
                             string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";

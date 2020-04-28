@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 
 namespace VnXGlobalSystems.Models
 {
@@ -10,6 +11,11 @@ namespace VnXGlobalSystems.Models
         public string PlayerHardwareIdExHash { get; set; }
         public string PlayerSocialClubId { get; set; }
         public string PlayerDiscordID { get; set; }
+        public string PlayerIPAdress { get; set; }
+        public string PlayerReason { get; set; }
+        public string PlayerServerOwner { get; set; }
+        public string PlayerServer { get; set; }
+        public DateTime PlayerCreated { get; set; }
 
         public GlobalBanModel(MySqlDataReader reader)
         {
@@ -19,6 +25,11 @@ namespace VnXGlobalSystems.Models
             PlayerHardwareIdExHash = reader.GetString("HardwareIdExHash");
             PlayerSocialClubId = reader.GetString("SocialClubId");
             PlayerDiscordID = reader.GetString("DiscordID");
+            PlayerIPAdress = "::ffff:" + reader.GetString("IP-Adress");
+            PlayerReason = reader.GetString("Reason");
+            PlayerServerOwner = reader.GetString("ServerOwner");
+            PlayerServer = reader.GetString("Server");
+            PlayerCreated = reader.GetDateTime("Created");
         }
     }
 }
