@@ -25,7 +25,7 @@ namespace VnXGlobalSystems.Models
             PlayerHardwareIdExHash = reader.GetString("HardwareIdExHash");
             PlayerSocialClubId = reader.GetString("SocialClubId");
             PlayerDiscordID = reader.GetString("DiscordID");
-            PlayerIPAdress = "::ffff:" + reader.GetString("IP-Adress");
+            PlayerIPAdress = reader.GetString("IP-Adress");
             PlayerReason = reader.GetString("Reason");
             PlayerServerOwner = reader.GetString("ServerOwner");
             PlayerServer = reader.GetString("Server");

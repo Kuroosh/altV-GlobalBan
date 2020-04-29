@@ -1,6 +1,8 @@
 ﻿using AltV.Net;
 using System;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using VnXGlobalSystems.Models;
@@ -11,6 +13,7 @@ namespace VnXGlobalSystems.Globals
     {
         public static Timer timer;
         public static AnticheatModel AnticheatModel;
+        public static GeneralModel GeneralModel;
         public static void LoadAnticheatConfig()
         {
             try
@@ -43,6 +46,7 @@ namespace VnXGlobalSystems.Globals
                     Database.Main.RefreshBanlist();
                     Constants.NEXT_BANLIST_REFRESH = DateTime.Now.AddMinutes(Constants.BANLIST_REFRESH_RATE);
                 }
+                if (!Functions.GeneralModel.AnticheatSystemActive) { return; }
                 foreach (PlayerModel player in Main.ConnectedPlayers)
                 {
                     Anticheat.Main.AntiFly(player);
@@ -67,7 +71,7 @@ namespace VnXGlobalSystems.Globals
             Console.WriteLine("-------- Loading Config File.... --------");
             Console.WriteLine("---------------------------------------------");
             //
-            GeneralModel GeneralModel = JsonSerializer.Deserialize<GeneralModel>(jsonString);
+            GeneralModel = JsonSerializer.Deserialize<GeneralModel>(jsonString);
             //
             Console.ResetColor();
             if (GeneralModel.AnticheatSystemActive) { Core.Debug.OutputLog("-------- [Settings] : Anticheat Active! --------", ConsoleColor.Green); LoadAnticheatConfig(); }
@@ -88,7 +92,17 @@ namespace VnXGlobalSystems.Globals
             Console.WriteLine("-------- VenoX Global Systems stopped --------");
             Console.WriteLine("------------------------------------------------------------------------");
         }
-
+        private static string Sha256(string randomString)
+        {
+            using SHA256 sha256Hash = SHA256.Create();
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(randomString));
+            StringBuilder stringbuilder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                stringbuilder.Append(bytes[i].ToString("x2"));
+            }
+            return stringbuilder.ToString();
+        }
         public static void CheckPlayerGlobalBans(PlayerModel player)
         {
             try
@@ -97,23 +111,29 @@ namespace VnXGlobalSystems.Globals
                 {
                     string BanFoundBy = "";
                     bool Kick = false;
-                    if (player.DiscordID == BanModel.PlayerDiscordID) { BanFoundBy = "Discord"; Kick = true; }
-                    if (player.HardwareIdHash.ToString() == BanModel.PlayerHardwareId) { BanFoundBy = "HWID"; Kick = true; }
-                    if (player.HardwareIdExHash.ToString() == BanModel.PlayerHardwareIdExHash) { BanFoundBy = "HwIdExHash"; Kick = true; }
-                    //if (player.Ip.ToString() == BanModel.PlayerIPAdress) { BanFoundBy = "IP"; Kick = true; }
-                    if (player.SocialClubId.ToString() == BanModel.PlayerSocialClubId) { BanFoundBy = "SocialClub"; Kick = true; }
+                    if (Sha256(player.DiscordID) == BanModel.PlayerDiscordID) { BanFoundBy = "Discord"; Kick = true; }
+                    if (Sha256(player.HardwareIdHash.ToString()) == BanModel.PlayerHardwareId) { BanFoundBy = "HWID"; Kick = true; }
+                    if (Sha256(player.HardwareIdExHash.ToString()) == BanModel.PlayerHardwareIdExHash) { BanFoundBy = "HwIdExHash"; Kick = true; }
+                    if (Sha256(player.Ip.ToString()) == BanModel.PlayerIPAdress) { BanFoundBy = "IP"; Kick = true; }
+                    if (Sha256(player.SocialClubId.ToString()) == BanModel.PlayerSocialClubId) { BanFoundBy = "SocialClub"; Kick = true; }
 
                     if (Kick)
                     {
                         Core.Debug.OutputDebugString("VenoX Global Systems : " + player.Name + " could not Connect. [" + BanFoundBy + "]");
-                        player.Kick("Your Globally Banned by VenoX Global Systems! E-Mail vnx_solidsnake@gmail.com");
+                        player.Kick("You´re Globally Banned by VenoX Global Systems! E-Mail https://forum.altv.mp/profile/1466-solid_snake/");
                     }
                     else
                     {
-                        Core.Debug.OutputDebugString("---------------- " + BanModel.PlayerName + " ----------------");
+                        Core.Debug.OutputLog("~~~~~~~~~~~~  [Banned]    ~~~~~~~~~~~~~~", ConsoleColor.Red);
                         Core.Debug.OutputDebugString("BanModel : DiscordID : " + BanModel.PlayerDiscordID + "| HardwareIdHash : " + BanModel.PlayerHardwareId + " | HardwareIdExHash : " + BanModel.PlayerHardwareIdExHash + " | Ip : " + BanModel.PlayerIPAdress + " | SocialClubId : " + BanModel.PlayerSocialClubId);
-                        Core.Debug.OutputDebugString("--------------------------------------------------------------------");
-                        Core.Debug.OutputDebugString("Player : DiscordID : " + player.DiscordID + "| HardwareIdHash : " + player.HardwareIdHash + " | HardwareIdExHash : " + player.HardwareIdExHash + " | Ip : " + player.Ip + " | SocialClubId : " + player.SocialClubId);
+                        Core.Debug.OutputDebugString("--------------------------------");
+                        Core.Debug.OutputLog("Name : " + player.Name, ConsoleColor.White);
+                        Core.Debug.OutputLog("HWID : " + Sha256(player.HardwareIdHash.ToString()), ConsoleColor.White);
+                        Core.Debug.OutputLog("HWID-ExHash : " + Sha256(player.HardwareIdExHash.ToString()), ConsoleColor.White);
+                        Core.Debug.OutputLog("SocialID : " + Sha256(player.SocialClubId.ToString()), ConsoleColor.White);
+                        Core.Debug.OutputLog("DiscordID : " + Sha256(player.DiscordID), ConsoleColor.White);
+                        Core.Debug.OutputLog("IP-Adress : " + Sha256(player.Ip.ToString()), ConsoleColor.White);
+                        Core.Debug.OutputLog("~~~~~~~~~~~~  [Banned]    ~~~~~~~~~~~~~~", ConsoleColor.Red);
                     }
 
                 }
