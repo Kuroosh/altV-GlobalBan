@@ -21,7 +21,7 @@ namespace VnXGlobalSystems.Globals
         public const int TELEPORT_KICK_FLYVEHICLE = 17;                    //Distance in Meter ( Kick after ...meter+ in Vehicle).
 
 
-
+        public static Dictionary<AltV.Net.Enums.WeaponModel, float> DamageList;
 
 
         public static List<AltV.Net.Enums.VehicleModel> Helicopter = new List<AltV.Net.Enums.VehicleModel>

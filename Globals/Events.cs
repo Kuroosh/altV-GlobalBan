@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Data;
 using System;
 using System.Numerics;
 using System.Threading;
@@ -32,6 +33,7 @@ namespace VnXGlobalSystems.Globals
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerConnect", ex); }
         }
+
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
         public static void OnPlayerDisconnect(PlayerModel player, string reason)
         {
@@ -42,6 +44,12 @@ namespace VnXGlobalSystems.Globals
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerDisconnect", ex); }
         }
 
+        [ScriptEvent(ScriptEventType.WeaponDamage)]
+        public static void WeaponDamage(PlayerModel player, PlayerModel target, uint weapon, ushort dmg, Position offset, BodyPart bodypart)
+        {
+            try { WeaponSync.WeaponDamage(player, target, weapon, dmg, offset, bodypart); Alt.Emit("GlobalSystems:OnEntityHit", player, target); }
+            catch { }
+        }
         [ClientEvent("VnXGlobalSystems:SetDiscordID")]
         public static void UpdateDiscordInfo(PlayerModel player, string DiscordID)
         {
@@ -54,17 +62,17 @@ namespace VnXGlobalSystems.Globals
         }
 
         ////////////////////////// Weapon Anticheat /////////////////////////////////////////////////////////
-        [ServerEvent("GlobalSystem:GiveWeapon")]
+        [ServerEvent("GlobalSystems:GiveWeapon")]
         public static void OnWeaponEventCall(PlayerModel player, uint WeaponHash, byte ammo, bool selectWeapon) => player.GivePlayerWeapon(WeaponHash, ammo, selectWeapon);
 
-        [ServerEvent("GlobalSystem:RemovePlayerWeapon")]
+        [ServerEvent("GlobalSystems:RemovePlayerWeapon")]
         public static void RemovePlayerWeapon(PlayerModel player, uint WeaponHash) => player.RemovePlayerWeapon(WeaponHash);
 
-        [ServerEvent("GlobalSystem:RemoveAllPlayerWeapons")]
+        [ServerEvent("GlobalSystems:RemoveAllPlayerWeapons")]
         public static void RemoveAllPlayerWeapon(PlayerModel player) => player.RemoveAllPlayerWeapon();
 
         ////////////////////////// Player Anticheat /////////////////////////////////////////////////////////
-        [ServerEvent("GlobalSystem:PlayerPosition")]
+        [ServerEvent("GlobalSystems:PlayerPosition")]
         public static void PlayerPosition(PlayerModel player, Vector3 position) => player.Position(position);
     }
     public static class EventFunctions

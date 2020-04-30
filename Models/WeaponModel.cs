@@ -1,0 +1,104 @@
+﻿namespace VnXGlobalSystems.Models
+{
+    public class WeaponModel
+    {
+        public bool Headshot { get; set; }
+        public bool HeadDamage { get; set; }
+        public bool SniperHeadshotOneshot { get; set; }
+        public float HeadDamageMultiplier { get; set; }
+
+        /////////////////////////////////////////////////
+        public float SniperRifle { get; set; }
+        public float FireExtinguisher { get; set; }
+        public float CompactGrenadeLauncher { get; set; }
+        public float Snowballs { get; set; }
+        public float VintagePistol { get; set; }
+        public float CombatPDW { get; set; }
+        public float HeavySniperMkII { get; set; }
+        public float HeavySniper { get; set; }
+        public float SweeperShotgun { get; set; }
+        public float MicroSMG { get; set; }
+        public float PipeWrench { get; set; }
+        public float Pistol { get; set; }
+        public float PumpShotgun { get; set; }
+        public float APPistol { get; set; }
+        public float Baseball { get; set; }
+        public float MolotovCocktail { get; set; }
+        public float SMG { get; set; }
+        public float StickyBomb { get; set; }
+        public float JerryCan { get; set; }
+        public float StunGun { get; set; }
+        public float StoneHatchet { get; set; }
+        public float AussaultRifleMkII { get; set; }
+        public float HeavyShotgun { get; set; }
+        public float Minigun { get; set; }
+        public float GolfClub { get; set; }
+        public float UnholyHellbringer { get; set; }
+        public float FlareGun { get; set; }
+        public float Flare { get; set; }
+        public float GrenadeLauncherSmoke { get; set; }
+        public float Hammer { get; set; }
+        public float PumpShotgunMkII { get; set; }
+        public float CombatPistol { get; set; }
+        public float GusenbergSweeper { get; set; }
+        public float CompactRifle { get; set; }
+        public float HomingLauncher { get; set; }
+        public float Nightstick { get; set; }
+        public float MarksmanRifleMkII { get; set; }
+        public float Railgun { get; set; }
+        public float SawedOffShotgun { get; set; }
+        public float SMGMkII { get; set; }
+        public float BullpupRifle { get; set; }
+        public float FireworkLauncher { get; set; }
+        public float CombatMG { get; set; }
+        public float CarbineRifle { get; set; }
+        public float Crowbar { get; set; }
+        public float BullpupRifleMkII { get; set; }
+        public float SNSPistolMkII { get; set; }
+        public float Flashlight { get; set; }
+        public float AntiqueCavalryDagger { get; set; }
+        public float Grenade { get; set; }
+        public float PoolCue { get; set; }
+        public float BaseballBat { get; set; }
+        public float SpecialCarbineMkII { get; set; }
+        public float DoubleActionRevolver { get; set; }
+        public float Pistol50 { get; set; }
+        public float Knife { get; set; }
+        public float MG { get; set; }
+        public float BullpupShotgun { get; set; }
+        public float BZGas { get; set; }
+        public float Fist { get; set; }
+        public float GrenadeLauncher { get; set; }
+        public float Musket { get; set; }
+        public float ProximityMines { get; set; }
+        public float AdvancedRifle { get; set; }
+        public float UpnAtomizer { get; set; }
+        public float RPG { get; set; }
+        public float Widowmaker { get; set; }
+        public float PipeBombs { get; set; }
+        public float MiniSMG { get; set; }
+        public float SNSPistol { get; set; }
+        public float PistolMkII { get; set; }
+        public float AssaultRifle { get; set; }
+        public float SpecialCarbine { get; set; }
+        public float HeavyRevolver { get; set; }
+        public float MarksmanRifle { get; set; }
+        public float HeavyRevolverMkII { get; set; }
+        public float BattleAxe { get; set; }
+        public float HeavyPistol { get; set; }
+        public float BrassKnuckles { get; set; }
+        public float MachinePistol { get; set; }
+        public float CombatMGMkII { get; set; }
+        public float MarksmanPistol { get; set; }
+        public float Machete { get; set; }
+        public float Switchblade { get; set; }
+        public float AssaultShotgun { get; set; }
+        public float DoubleBarrelShotgun { get; set; }
+        public float AssaultSMG { get; set; }
+        public float Hatchet { get; set; }
+        public float BrokenBottle { get; set; }
+        public float CarbineRifleMkII { get; set; }
+        public float TearGas { get; set; }
+
+    }
+}
