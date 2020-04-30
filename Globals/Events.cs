@@ -84,19 +84,19 @@ namespace VnXGlobalSystems.Globals
         }
         public static void GivePlayerWeapon(this PlayerModel player, uint WeaponHash, byte ammo, bool selectWeapon)
         {
-            try { player.GiveWeapon(WeaponHash, ammo, selectWeapon); }
+            try { player.GiveWeapon(WeaponHash, ammo, selectWeapon); player.Weapons.Add(WeaponHash); }
             catch (Exception ex) { Core.Debug.CatchExceptions("GivePlayerWeapon", ex); }
         }
 
         public static void RemovePlayerWeapon(this PlayerModel player, uint WeaponHash)
         {
-            try { player.RemoveWeapon(WeaponHash); }
+            try { player.RemoveWeapon(WeaponHash); player.Weapons.Remove(WeaponHash); }
             catch (Exception ex) { Core.Debug.CatchExceptions("RemovePlayerWeapon", ex); }
         }
 
         public static void RemoveAllPlayerWeapon(this PlayerModel player)
         {
-            try { player.RemoveAllWeapons(); }
+            try { player.RemoveAllWeapons(); player.Weapons.Clear(); }
             catch (Exception ex) { Core.Debug.CatchExceptions("RemoveAllPlayerWeapon", ex); }
         }
 

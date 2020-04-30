@@ -26,9 +26,9 @@ namespace VnXGlobalSystems.Anticheat
         }
         public static void AntiFly(PlayerModel playerClass)
         {
-            if (!Functions.AnticheatModel.AntiFly) { return; }
             try
             {
+                if (!Functions.AnticheatModel.AntiFly) { return; }
                 if (playerClass.IsInVehicle) { return; }
                 else if (playerClass.NextFlyUpdate >= DateTime.Now) { return; }
                 else if (playerClass.Position.Z > 150) { return; }
@@ -50,9 +50,9 @@ namespace VnXGlobalSystems.Anticheat
         }
         public static void CheckTeleport(PlayerModel playerClass)
         {
-            if (!Functions.AnticheatModel.CheckTeleport) { return; }
             try
             {
+                if (!Functions.AnticheatModel.CheckTeleport) { return; }
                 if (playerClass.IsInVehicle)
                 {
                     if (playerClass.Position.Distance(playerClass.LastPosition) > GetMaxTeleportVehicleDistance(playerClass))
@@ -88,12 +88,12 @@ namespace VnXGlobalSystems.Anticheat
         }
         public static void CheckWeapons(PlayerModel playerClass)
         {
-            if (!Functions.AnticheatModel.CheckWeapons) { return; }
             try
             {
+                if (!Functions.AnticheatModel.CheckWeapons) { return; }
                 if (playerClass.Weapon == (uint)AltV.Net.Enums.WeaponModel.Fist) { return; }
 
-                if (!playerClass.Weapons.Contains((AltV.Net.Enums.WeaponModel)playerClass.Weapon))
+                if (!playerClass.Weapons.Contains(playerClass.Weapon))
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Weapon-Anticheat!");
