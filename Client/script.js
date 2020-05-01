@@ -15,7 +15,9 @@ alt.log("VnXGlobalSystemsClient:Loaded");
 
 alt.onServer('VnXGlobalSystemsClient:GetDiscordID', () => {
     try {
-        let DiscordID = "" + alt.Discord.currentUser.id;
+        if (!alt.Discord.currentUser)
+            return null;
+        let DiscordID = alt.Discord.currentUser.id.toString();
         alt.emitServer("VnXGlobalSystems:SetDiscordID", DiscordID);
     }
     catch{ }
