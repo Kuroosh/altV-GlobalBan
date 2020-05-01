@@ -1,0 +1,8 @@
+{
+  "mode": "file",
+  "readme": "none",
+  "includeDeclarations": true,
+  "excludeExternals": true,
+  "out": "docs",
+  "name": "alt:V JS Docs"
+}

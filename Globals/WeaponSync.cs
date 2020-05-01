@@ -42,8 +42,7 @@ namespace VnXGlobalSystems.Globals
                     Core.Debug.OutputDebugString("[INFO] : " + player.Name + " got kicked! Reason : Weapon-Anticheat!");
                     Console.ResetColor();
                     string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
-                    player.Log(reason);
-                    player.Kick(reason);
+                    player.KickPlayer(reason);
                 }
                 var ConvertedWeapon = (AltV.Net.Enums.WeaponModel)weapon;
                 if (ConvertedWeapon == AltV.Net.Enums.WeaponModel.SniperRifle && bodypart == BodyPart.Head)

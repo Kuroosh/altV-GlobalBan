@@ -16,8 +16,8 @@ namespace VnXGlobalSystems.Database
         public static async void OnResourceStart()
         {
             string host = "5.180.66.146";
-            string user = "VenoXV_Global_Systems";
-            string pass = "ri@75Cl03?Y9ul6dp26l_Ud8";
+            string user = Functions.GeneralModel.Username;
+            string pass = Functions.GeneralModel.Password;
             string db = "VenoXV_Global_Systems";
             connectionString = "SERVER=" + host + "; DATABASE=" + db + "; UID=" + user + "; PASSWORD=" + pass + "; SSLMODE=none;";
 
@@ -45,19 +45,6 @@ namespace VnXGlobalSystems.Database
                 });
             });
         }
-        /*
-        public static void RegisterTestInsert(string Name, string HardwareIdHash, string HardwareIdExHash, string SocialClubId, string DiscordID)
-        {
-            using MySqlConnection connection = new MySqlConnection(connectionString);
-            connection.Open();
-            MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "INSERT INTO spieler (Name, SpielerSocial, HardwareIdHash, HardwareIdExHash, SocialClubId ) VALUES(@Name, @HardwareIdHash, @HardwareIdExHash, @SocialClubId)";
-            command.Parameters.AddWithValue("@Name", Name);
-            command.Parameters.AddWithValue("@HardwareIdHash", HardwareIdHash);
-            command.Parameters.AddWithValue("@HardwareIdExHash", HardwareIdExHash);
-            command.Parameters.AddWithValue("@SocialClubId", SocialClubId);
-            command.ExecuteNonQuery();
-        }*/
 
         public static void RefreshBanlist()
         {

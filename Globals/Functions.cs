@@ -29,11 +29,14 @@ namespace VnXGlobalSystems.Globals
                 //Ragdoll Notify
                 if (AnticheatModel.AntiNoRagdoll) { Core.Debug.OutputLog("-------- Global Systems AntiNoRagdoll = [ON] --------", ConsoleColor.Green); }
                 else { Core.Debug.OutputLog("-------- Global Systems AntiNoRagdoll = [OFF] --------", ConsoleColor.Red); }
+                //Godmode Notify
+                if (AnticheatModel.AntiGodmode) { Core.Debug.OutputLog("-------- Global Systems AntiGodmode = [ON] --------", ConsoleColor.Green); LoadWeaponDamageConfig(); }
+                else { Core.Debug.OutputLog("-------- Global Systems AntiGodmode = [OFF] --------", ConsoleColor.Red); }
                 //CheckTeleport Notify
                 if (AnticheatModel.CheckTeleport) { Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [ON] --------", ConsoleColor.Green); }
                 else { Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [OFF] --------", ConsoleColor.Red); }
                 //CheckWeapons Notify
-                if (AnticheatModel.CheckWeapons) { Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [ON] --------", ConsoleColor.Green); LoadWeaponDamageConfig(); }
+                if (AnticheatModel.CheckWeapons) { Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [ON] --------", ConsoleColor.Green); }
                 else { Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [OFF] --------", ConsoleColor.Red); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Anticheat-Error", ex); }
@@ -53,6 +56,7 @@ namespace VnXGlobalSystems.Globals
                 {
                     Anticheat.Main.AntiFly(player);
                     Anticheat.Main.AntiNoRagdoll(player);
+                    Anticheat.Main.AntiGodmode(player);
                     Anticheat.Main.CheckTeleport(player);
                     Anticheat.Main.CheckWeapons(player);
                     if (Constants.NEXT_INGAME_BAN_CHECK <= DateTime.Now) { CheckPlayerGlobalBans(player); Constants.NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(Constants.INGAME_BAN_REFRESH_RATE); }
@@ -119,7 +123,7 @@ namespace VnXGlobalSystems.Globals
                     if (Kick)
                     {
                         Core.Debug.OutputDebugString("VenoX Global Systems : " + player.Name + " could not Connect. [" + BanFoundBy + "]");
-                        player.Kick("You´re Globally Banned by VenoX Global Systems! E-Mail https://forum.altv.mp/profile/1466-solid_snake/");
+                        player.KickGlobal();
                     }
                     else
                     {
@@ -144,7 +148,7 @@ namespace VnXGlobalSystems.Globals
             string jsonString = File.ReadAllText(Alt.Server.Resource.Path + "/settings/weapon.json");
             WeaponModel = JsonSerializer.Deserialize<WeaponModel>(jsonString);
             Console.ResetColor();
-            //Fly Notify
+            Core.Debug.OutputLog("~~~~~~~~~~~~  [Weapon-Config]    ~~~~~~~~~~~~~~", ConsoleColor.Cyan);
             if (WeaponModel.Headshot) { Core.Debug.OutputLog("-------- Global Systems Headshot = [ON] --------", ConsoleColor.Green); }
             else { Core.Debug.OutputLog("-------- Global Systems Headshot = [OFF] --------", ConsoleColor.Red); }
             if (WeaponModel.HeadDamage) { Core.Debug.OutputLog("-------- Global Systems HeadDamage = [ON] --------", ConsoleColor.Green); }

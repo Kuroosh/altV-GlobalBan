@@ -1,6 +1,7 @@
 {
-	"AntiNoRagdoll": true,
 	"AntiFly": true,
+	"AntiNoRagdoll": false,
+	"AntiGodmode": true,
 	"CheckTeleport": false,
 	"CheckWeapons": true
 }

@@ -9,7 +9,7 @@ namespace VnXGlobalSystems.Globals
         public const int UPDATEINTERVAL = 50;                                //Time in MS.
         public const int START_AFTER_CONNECT = 3;                           //Time in Seconds.
 
-        public static bool AWESOME_SNAKE_MODE = true;                                                     // Beware of using this!! you could not be Awesome enough for that...
+        public static bool AWESOME_SNAKE_MODE = false;                                                    // Beware of using this!! you could not be Awesome enough for that...
         public static int BANLIST_REFRESH_RATE = 30;                                                     //Time in Minutes
         public static int INGAME_BAN_REFRESH_RATE = 1;                                                   //Time in Minutes
         public static DateTime NEXT_BANLIST_REFRESH = DateTime.Now.AddMinutes(BANLIST_REFRESH_RATE);    //Last Time Refreshed/Renewed the Banlist.

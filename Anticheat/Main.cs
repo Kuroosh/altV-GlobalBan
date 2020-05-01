@@ -20,8 +20,12 @@ namespace VnXGlobalSystems.Anticheat
         }
         public static void AntiNoRagdoll(PlayerModel playerClass)
         {
-            if (!Functions.AnticheatModel.AntiNoRagdoll) { return; }
-            try { playerClass.Emit("VnXGlobalSystemsClient:SetPedCanRagdoll", true); }
+            try { if (!Functions.AnticheatModel.AntiNoRagdoll) { return; } playerClass.Emit("VnXGlobalSystemsClient:SetPedCanRagdoll", true); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : NoRagdoll", ex); }
+        }
+        public static void AntiGodmode(PlayerModel playerClass)
+        {
+            try { if (!Functions.AnticheatModel.AntiGodmode) { return; } playerClass.Emit("VnXGlobalSystemsClient:SetProofs"); }
             catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : NoRagdoll", ex); }
         }
         public static void AntiFly(PlayerModel playerClass)
@@ -40,8 +44,7 @@ namespace VnXGlobalSystems.Anticheat
                         Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Fly-Anticheat!");
                         Console.ResetColor();
                         string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
-                        playerClass.Log(reason);
-                        playerClass.Kick(reason);
+                        playerClass.KickPlayer(reason);
                     }
                     playerClass.NextFlyUpdate = DateTime.Now.AddSeconds(3);
                 }
@@ -62,8 +65,7 @@ namespace VnXGlobalSystems.Anticheat
                         Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Vehicle-Teleport-Anticheat!");
                         Console.ResetColor();
                         string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
-                        playerClass.Log(reason);
-                        playerClass.Kick(reason);
+                        playerClass.KickPlayer(reason);
                     }
                 }
                 else
@@ -77,8 +79,7 @@ namespace VnXGlobalSystems.Anticheat
                             Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Teleport-Anticheat!");
                             Console.ResetColor();
                             string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
-                            playerClass.Log(reason);
-                            playerClass.Kick(reason);
+                            playerClass.KickPlayer(reason);
                         }
                     }
                 }
@@ -91,17 +92,15 @@ namespace VnXGlobalSystems.Anticheat
             try
             {
                 if (!Functions.AnticheatModel.CheckWeapons) { return; }
-                if (playerClass.Weapon == (uint)AltV.Net.Enums.WeaponModel.Fist) { return; }
-
+                if (playerClass.Weapon == (uint)AltV.Net.Enums.WeaponModel.Fist || playerClass.Weapon == 0) { return; }
                 if (!playerClass.Weapons.Contains(playerClass.Weapon))
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Weapon-Anticheat!");
+                    Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Weapon-Anticheat! [" + playerClass.Weapon + "]");
                     Console.ResetColor();
                     string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
                     playerClass.RemoveAllWeapons();
-                    playerClass.Log(reason);
-                    playerClass.Kick(reason);
+                    playerClass.KickPlayer(reason);
                 }
 
             }
