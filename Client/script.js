@@ -14,11 +14,11 @@ let kicked = false;
 alt.log("VnXGlobalSystemsClient:Loaded");
 
 alt.onServer('VnXGlobalSystemsClient:GetDiscordID', () => {
-    try {
-        let DiscordID = "" + alt.Discord.currentUser.id;
-        alt.emitServer("VnXGlobalSystems:SetDiscordID", DiscordID);
-    }
-    catch{ }
+	let DiscordID = "";
+	if(alt.Discord.currentUser){
+		DiscordID = "" + alt.Discord.currentUser.id;
+	}
+	alt.emitServer("VnXGlobalSystems:SetDiscordID", DiscordID);
 });
 
 alt.onServer("VnXGlobalSystemsClient:SetPedCanRagdoll", (bool) => {
@@ -33,16 +33,15 @@ alt.onServer("VnXGlobalSystemsClient:SetProofs", (bool) => {
 
 alt.onServer('VnXGlobalSystemsClient:Kick', (reason) => {
     if (kicked) return;
-    alt.logWarning("------------------------------------");
-    alt.logError("-------- Kicked by Anticheat -------");
-    alt.logError("--------      Reason :       -------");
-    alt.logError("--------      " + reason + "   -------");
-    alt.logWarning("------------------------------------");
+    alt.log("~c~------------------------------------");
+    alt.log("~r~-------- Kicked by Anticheat -------");
+    alt.log("~c~------------------------------------");
+	alt.emitServer('VnXGlobalSystems:KickPlayer');
     kicked = true;
 });
 alt.onServer('VnXGlobalSystemsClient:KickGlobal', () => {
     if (kicked) return;
-    alt.log("~b~~c~------------------------------------");
+    alt.log("~c~------------------------------------");
     alt.log("~r~--------        You´re Globally Banned by VenoX Global Systems!             -------");
     alt.log("~r~--------        E-Mail https://forum.altv.mp/profile/1466-solid_snake/      -------");
     alt.log("~b~~c~------------------------------------");
