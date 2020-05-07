@@ -10,6 +10,7 @@ namespace VnXGlobalSystems.Models
     {
         public Vector3 LastPosition { get; set; }
         public bool EntityIsFlying { get; set; }
+        public bool EntityLogsCreated { get; set; }
         public DateTime NextFlyUpdate { get; set; }
         public int FlyTicks { get; set; }
         public List<uint> Weapons { get; set; }
@@ -22,6 +23,7 @@ namespace VnXGlobalSystems.Models
                 LastPosition = new Vector3();
                 EntityIsFlying = false;
                 NextFlyUpdate = DateTime.Now;
+                EntityLogsCreated = false;
                 FlyTicks = 0;
                 Weapons = new List<uint>();
                 DiscordID = "";
