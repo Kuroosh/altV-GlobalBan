@@ -93,6 +93,7 @@ namespace VnXGlobalSystems.Anticheat
             {
                 if (!Functions.AnticheatModel.CheckWeapons) { return; }
                 if (playerClass.Weapon == (uint)AltV.Net.Enums.WeaponModel.Fist || playerClass.Weapon == 0) { return; }
+                Core.Debug.OutputDebugString("[INFO] : " + playerClass.Weapon);
                 if (!playerClass.Weapons.Contains(playerClass.Weapon))
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
