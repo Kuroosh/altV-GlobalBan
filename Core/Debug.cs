@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AltV.Net;
+using System;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace VnXGlobalSystems.Core
@@ -44,6 +46,35 @@ namespace VnXGlobalSystems.Core
 
             }
             Console.WriteLine();
+        }
+        public static void WriteLogs(string logname, string strLog)
+        {
+            try
+            {
+                StreamWriter log;
+                FileStream fileStream = null;
+                DirectoryInfo logDirInfo = null;
+                FileInfo logFileInfo;
+
+                //string logFilePath = "C:\\Users\\Administrator\\Desktop\\vnx_log_files\\";
+                string logFilePath = Alt.Server.Resource.Path + "/settings/debug/";
+                logFilePath = logFilePath + logname + "." + "txt";
+                logFileInfo = new FileInfo(logFilePath);
+                logDirInfo = new DirectoryInfo(logFileInfo.DirectoryName);
+                if (!logDirInfo.Exists) logDirInfo.Create();
+                if (!logFileInfo.Exists)
+                {
+                    fileStream = logFileInfo.Create();
+                }
+                else
+                {
+                    fileStream = new FileStream(logFilePath, FileMode.Append);
+                }
+                log = new StreamWriter(fileStream);
+                log.WriteLine(DateTime.Today.ToString("MM-dd-yyyy") + " | " + DateTime.Now.ToString("HH:mm:ss tt") + " | " + strLog);
+                log.Close();
+            }
+            catch { }
         }
     }
 }
