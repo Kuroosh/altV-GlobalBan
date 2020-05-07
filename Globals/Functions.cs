@@ -51,15 +51,15 @@ namespace VnXGlobalSystems.Globals
                     Database.Main.RefreshBanlist();
                     Constants.NEXT_BANLIST_REFRESH = DateTime.Now.AddMinutes(Constants.BANLIST_REFRESH_RATE);
                 }
-                if (!Functions.GeneralModel.AnticheatSystemActive) { return; }
                 foreach (PlayerModel player in Main.ConnectedPlayers)
                 {
+                    if (Constants.NEXT_INGAME_BAN_CHECK <= DateTime.Now) { CheckPlayerGlobalBans(player); Constants.NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(Constants.INGAME_BAN_REFRESH_RATE); }
+                    if (!Functions.GeneralModel.AnticheatSystemActive) { return; }
                     Anticheat.Main.AntiFly(player);
                     Anticheat.Main.AntiNoRagdoll(player);
                     Anticheat.Main.AntiGodmode(player);
                     Anticheat.Main.CheckTeleport(player);
                     Anticheat.Main.CheckWeapons(player);
-                    if (Constants.NEXT_INGAME_BAN_CHECK <= DateTime.Now) { CheckPlayerGlobalBans(player); Constants.NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(Constants.INGAME_BAN_REFRESH_RATE); }
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("VnX-Global-Systems:OnUpdate", ex); }
@@ -119,26 +119,29 @@ namespace VnXGlobalSystems.Globals
                     if (Sha256(player.HardwareIdExHash.ToString()) == BanModel.PlayerHardwareIdExHash) { BanFoundBy = "HwIdExHash"; Kick = true; }
                     if (Sha256(player.Ip.ToString()) == BanModel.PlayerIPAdress) { BanFoundBy = "IP"; Kick = true; }
                     if (Sha256(player.SocialClubId.ToString()) == BanModel.PlayerSocialClubId) { BanFoundBy = "SocialClub"; Kick = true; }
-
                     if (Kick)
                     {
                         Core.Debug.OutputDebugString("VenoX Global Systems : " + player.Name + " could not Connect. [" + BanFoundBy + "]");
                         player.KickGlobal();
                     }
-                    else
+                    if (player.EntityLogsCreated) { return; }
+                    if (Constants.AWESOME_SNAKE_MODE)
                     {
-                        Core.Debug.OutputLog("~~~~~~~~~~~~  [Banned]    ~~~~~~~~~~~~~~", ConsoleColor.Red);
-                        Core.Debug.OutputDebugString("BanModel : DiscordID : " + BanModel.PlayerDiscordID + "| HardwareIdHash : " + BanModel.PlayerHardwareId + " | HardwareIdExHash : " + BanModel.PlayerHardwareIdExHash + " | Ip : " + BanModel.PlayerIPAdress + " | SocialClubId : " + BanModel.PlayerSocialClubId);
-                        Core.Debug.OutputDebugString("--------------------------------");
-                        Core.Debug.OutputLog("Name : " + player.Name, ConsoleColor.White);
-                        Core.Debug.OutputLog("HWID : " + Sha256(player.HardwareIdHash.ToString()), ConsoleColor.White);
-                        Core.Debug.OutputLog("HWID-ExHash : " + Sha256(player.HardwareIdExHash.ToString()), ConsoleColor.White);
-                        Core.Debug.OutputLog("SocialID : " + Sha256(player.SocialClubId.ToString()), ConsoleColor.White);
-                        Core.Debug.OutputLog("DiscordID : " + Sha256(player.DiscordID), ConsoleColor.White);
-                        Core.Debug.OutputLog("IP-Adress : " + Sha256(player.Ip.ToString()), ConsoleColor.White);
-                        Core.Debug.OutputLog("~~~~~~~~~~~~  [Banned]    ~~~~~~~~~~~~~~", ConsoleColor.Red);
+                        string logname = "debug";
+                        Core.Debug.WriteLogs(logname, "~~~~~~~~~~~~  [De La Info Spieler]    ~~~~~~~~~~~~~~");
+                        //Core.Debug.OutputDebugString("BanModel : DiscordID : " + BanModel.PlayerDiscordID + "| HardwareIdHash : " + BanModel.PlayerHardwareId + " | HardwareIdExHash : " + BanModel.PlayerHardwareIdExHash + " | Ip : " + BanModel.PlayerIPAdress + " | SocialClubId : " + BanModel.PlayerSocialClubId);
+                        //Core.Debug.OutputDebugString("--------------------------------");
+                        //Core.Debug.OutputDebugString("--------------------------------");
+                        Core.Debug.WriteLogs(logname, "Name : " + player.Name);
+                        Core.Debug.WriteLogs(logname, "HWID : " + Sha256(player.HardwareIdHash.ToString()));
+                        Core.Debug.WriteLogs(logname, "HWID-ExHash : " + Sha256(player.HardwareIdExHash.ToString()));
+                        Core.Debug.WriteLogs(logname, "SocialID : " + Sha256(player.SocialClubId.ToString()));
+                        Core.Debug.WriteLogs(logname, "DiscordID : " + Sha256(player.DiscordID));
+                        Core.Debug.WriteLogs(logname, "DiscordID2 : " + player.DiscordID);
+                        Core.Debug.WriteLogs(logname, "IP-Adress : " + Sha256(player.Ip.ToString()));
+                        Core.Debug.WriteLogs(logname, "~~~~~~~~~~~~  [De La Info Spieler]    ~~~~~~~~~~~~~~");
+                        player.EntityLogsCreated = true;
                     }
-
                 }
             }
             catch { }
