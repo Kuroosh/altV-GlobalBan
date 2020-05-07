@@ -15,6 +15,7 @@ namespace VnXGlobalSystems.Globals
             Functions.timer = new Timer(Functions.OnUpdate, null, Constants.UPDATEINTERVAL, Constants.UPDATEINTERVAL);
             Functions.LoadMainFunctions();
             Database.Main.OnResourceStart();
+            Core.Debug.WriteLogs("debug", "Server Started with Debug Mode true!");
         }
         public static void OnResourceStop()
         {
