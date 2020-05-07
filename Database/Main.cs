@@ -44,6 +44,10 @@ namespace VnXGlobalSystems.Database
                     }
                 });
             });
+            if (GlobalBannedPlayers.Count > 0)
+            {
+                Core.Debug.OutputLog("--- VenoX Global Systems Database Connection = [OK!]", ConsoleColor.Green);
+            }
         }
 
         public static void RefreshBanlist()
