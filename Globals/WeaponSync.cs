@@ -36,13 +36,16 @@ namespace VnXGlobalSystems.Globals
             {
                 if (target == player) { return; }
                 if (target.Health <= 0) { return; }
-                if (!player.Weapons.Contains(player.Weapon))
+                if (Functions.AnticheatModel.CheckWeapons)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Core.Debug.OutputDebugString("[INFO] : " + player.Name + " got kicked! Reason : Weapon-Anticheat!");
-                    Console.ResetColor();
-                    string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
-                    player.KickPlayer(reason);
+                    if (!player.Weapons.Contains(weapon) && weapon != (uint)AltV.Net.Enums.WeaponModel.Fist && weapon != 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Core.Debug.OutputDebugString("[INFO] : " + player.Name + " got kicked! Reason : Weapon-Anticheat!");
+                        Console.ResetColor();
+                        string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
+                        player.KickPlayer(reason);
+                    }
                 }
                 var ConvertedWeapon = (AltV.Net.Enums.WeaponModel)weapon;
                 if (ConvertedWeapon == AltV.Net.Enums.WeaponModel.SniperRifle && bodypart == BodyPart.Head)
