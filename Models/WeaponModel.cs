@@ -3,6 +3,7 @@
     public class WeaponModel
     {
         public bool Headshot { get; set; }
+        public bool TeamDamage { get; set; }
         public bool HeadDamage { get; set; }
         public bool SniperHeadshotOneshot { get; set; }
         public float HeadDamageMultiplier { get; set; }
