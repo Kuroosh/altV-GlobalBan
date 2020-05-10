@@ -76,5 +76,17 @@ namespace VnXGlobalSystems.Core
             }
             catch { }
         }
+        public static void WriteJsonString(string logname, string strLog)
+        {
+            try
+            {
+                string logFilePath = Alt.Server.Resource.Path + "/settings/";
+                logFilePath = logFilePath + logname + "." + "json";
+                string content = File.ReadAllText(logFilePath);
+                content = content.Remove(content.Length - 1) + "," + strLog + "]";
+                File.WriteAllText(logFilePath, content);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("WriteJsonString", ex); }
+        }
     }
 }
