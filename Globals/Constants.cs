@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using VnXGlobalSystems.Models;
 
 namespace VnXGlobalSystems.Globals
 {
@@ -19,6 +20,9 @@ namespace VnXGlobalSystems.Globals
         public const int TELEPORT_KICK_FOOT = 12;                            //Distance in Meter ( Kick after ...meter+ on Foot).
         public const int TELEPORT_KICK_VEHICLE = 9;                         //Distance in Meter ( Kick after ...meter+ in Vehicle).
         public const int TELEPORT_KICK_FLYVEHICLE = 17;                    //Distance in Meter ( Kick after ...meter+ in Vehicle).
+
+
+        public static List<PrivacyModel> PrivacyAcceptedPlayers = new List<PrivacyModel>();          //Load current players who accept the privacy.
 
 
         public static Dictionary<AltV.Net.Enums.WeaponModel, float> DamageList;
