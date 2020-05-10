@@ -35,6 +35,7 @@ namespace VnXGlobalSystems.Globals
             try
             {
                 if (target == player) { return; }
+                if (!Functions.WeaponModel.TeamDamage && target.Team == player.Team) { return; }
                 if (target.Health <= 0) { return; }
                 if (Functions.AnticheatModel.CheckWeapons)
                 {
@@ -47,7 +48,12 @@ namespace VnXGlobalSystems.Globals
                         player.KickPlayer(reason);
                     }
                 }
-                var ConvertedWeapon = (AltV.Net.Enums.WeaponModel)weapon;
+                if (Functions.WeaponModel.Headshot && bodypart == BodyPart.Head)
+                {
+                    target.Health = 0;
+                    return;
+                }
+                AltV.Net.Enums.WeaponModel ConvertedWeapon = (AltV.Net.Enums.WeaponModel)weapon;
                 if (ConvertedWeapon == AltV.Net.Enums.WeaponModel.SniperRifle && bodypart == BodyPart.Head)
                 {
                     if (Functions.WeaponModel.SniperHeadshotOneshot)
