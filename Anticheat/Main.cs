@@ -92,7 +92,7 @@ namespace VnXGlobalSystems.Anticheat
             try
             {
                 if (!Functions.AnticheatModel.CheckWeapons) { return; }
-                if (playerClass.CurrentWeapon == (uint)AltV.Net.Enums.WeaponModel.Fist || playerClass.CurrentWeapon == 0) { return; }
+                if (playerClass.CurrentWeapon == (uint)AltV.Net.Enums.WeaponModel.Fist || playerClass.CurrentWeapon == 0 || playerClass.LastWeapon == playerClass.CurrentWeapon) { return; }
                 if (!playerClass.Weapons.Contains(playerClass.CurrentWeapon))
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -100,10 +100,10 @@ namespace VnXGlobalSystems.Anticheat
                     Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Weapon-Anticheat! [" + playerClass.CurrentWeapon + "]");
                     Console.ResetColor();
                     string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
+                    playerClass.LastWeapon = playerClass.CurrentWeapon;
                     playerClass.RemoveAllWeapons();
                     playerClass.KickPlayer(reason);
                 }
-
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : CheckWeapons", ex); }
         }
