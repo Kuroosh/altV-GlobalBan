@@ -154,6 +154,8 @@ namespace VnXGlobalSystems.Globals
             Core.Debug.OutputLog("~~~~~~~~~~~~  [Weapon-Config]    ~~~~~~~~~~~~~~", ConsoleColor.Cyan);
             if (WeaponModel.Headshot) { Core.Debug.OutputLog("-------- Global Systems Headshot = [ON] --------", ConsoleColor.Green); }
             else { Core.Debug.OutputLog("-------- Global Systems Headshot = [OFF] --------", ConsoleColor.Red); }
+            if (WeaponModel.TeamDamage) { Core.Debug.OutputLog("-------- Global Systems Team-Damage = [ON] --------", ConsoleColor.Green); }
+            else { Core.Debug.OutputLog("-------- Global Systems Team-Damage = [OFF] --------", ConsoleColor.Red); }
             if (WeaponModel.HeadDamage) { Core.Debug.OutputLog("-------- Global Systems HeadDamage = [ON] --------", ConsoleColor.Green); }
             else { Core.Debug.OutputLog("-------- Global Systems HeadDamage = [OFF] --------", ConsoleColor.Red); }
             Constants.DamageList = new Dictionary<AltV.Net.Enums.WeaponModel, float>
