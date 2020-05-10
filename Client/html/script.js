@@ -1,0 +1,3 @@
+if ("alt" in window) {
+
+}
