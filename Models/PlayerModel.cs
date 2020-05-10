@@ -14,6 +14,8 @@ namespace VnXGlobalSystems.Models
         public DateTime NextFlyUpdate { get; set; }
         public int FlyTicks { get; set; }
         public List<uint> Weapons { get; set; }
+        public uint LastWeapon { get; set; }
+        public int Team { get; set; }
         public string DiscordID { get; set; }
 
         public PlayerModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
@@ -26,6 +28,8 @@ namespace VnXGlobalSystems.Models
                 EntityLogsCreated = false;
                 FlyTicks = 0;
                 Weapons = new List<uint>();
+                LastWeapon = CurrentWeapon;
+                Team = 0;
                 DiscordID = "";
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
