@@ -14,6 +14,7 @@ namespace VnXGlobalSystems.Models
         public DateTime NextFlyUpdate { get; set; }
         public int FlyTicks { get; set; }
         public List<uint> Weapons { get; set; }
+        public DateTime NextWeaponTickCheck { get; set; }
         public uint LastWeapon { get; set; }
         public int Team { get; set; }
         public string DiscordID { get; set; }
