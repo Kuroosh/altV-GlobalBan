@@ -95,14 +95,18 @@ namespace VnXGlobalSystems.Anticheat
                 if (playerClass.CurrentWeapon == (uint)AltV.Net.Enums.WeaponModel.Fist || playerClass.CurrentWeapon == 0 || playerClass.LastWeapon == playerClass.CurrentWeapon) { return; }
                 if (!playerClass.Weapons.Contains(playerClass.CurrentWeapon))
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Core.Debug.OutputDebugString("[INFO] : " + playerClass.CurrentWeapon);
-                    Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Weapon-Anticheat! [" + playerClass.CurrentWeapon + "]");
-                    Console.ResetColor();
-                    string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
-                    playerClass.LastWeapon = playerClass.CurrentWeapon;
-                    playerClass.RemoveAllWeapons();
-                    playerClass.KickPlayer(reason);
+                    if (playerClass.NextWeaponTickCheck <= DateTime.Now)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Core.Debug.OutputDebugString("[INFO] : " + playerClass.CurrentWeapon);
+                        Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Weapon-Anticheat! [" + playerClass.CurrentWeapon + "]");
+                        Console.ResetColor();
+                        string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
+                        playerClass.LastWeapon = playerClass.CurrentWeapon;
+                        playerClass.RemoveAllWeapons();
+                        playerClass.KickPlayer(reason);
+                    }
+                    else if (playerClass.NextWeaponTickCheck != DateTime.Now.AddSeconds(2)) { playerClass.NextWeaponTickCheck = DateTime.Now.AddSeconds(1); }
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : CheckWeapons", ex); }
