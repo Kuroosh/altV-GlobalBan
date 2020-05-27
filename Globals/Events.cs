@@ -88,7 +88,7 @@ namespace VnXGlobalSystems.Globals
         public static void WeaponDamage(PlayerModel player, PlayerModel target, uint weapon, ushort dmg, Position offset, BodyPart bodypart)
         {
             try { if (target == null) { return; } if (!Functions.AnticheatModel.AntiGodmode) { return; } WeaponSync.WeaponDamage(player, target, weapon, dmg, offset, bodypart); Alt.Emit("GlobalSystems:OnEntityHit", player, target); }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("WeaponDamage", ex); }
         }
 
         [ClientEvent("VnXGlobalSystems:SetDiscordID")]
@@ -204,7 +204,7 @@ namespace VnXGlobalSystems.Globals
 
         public static void Position(this PlayerModel player, Vector3 position)
         {
-            try { if (player == null) { return; } player.LastPosition = position; player.Position = position; Core.Debug.OutputDebugString("Called from " + player.Name + " : " + position); }
+            try { if (player == null) { return; } player.LastPosition = position; player.Position = position; }
             catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:Position", ex); }
         }
     }
