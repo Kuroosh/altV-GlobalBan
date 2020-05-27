@@ -1,4 +1,5 @@
-﻿using AltV.Net.Data;
+﻿using AltV.Net;
+using AltV.Net.Data;
 using System;
 using VnXGlobalSystems.Models;
 
@@ -51,6 +52,8 @@ namespace VnXGlobalSystems.Globals
                 if (Functions.WeaponModel.Headshot && bodypart == BodyPart.Head)
                 {
                     target.Health = 0;
+                    Alt.Emit("GlobalSystems:OnPlayerSyncDamage", target, player);
+                    Alt.Emit("GlobalSystems:OnPlayerSyncDeath", target, player);
                     return;
                 }
                 AltV.Net.Enums.WeaponModel ConvertedWeapon = (AltV.Net.Enums.WeaponModel)weapon;
@@ -59,6 +62,8 @@ namespace VnXGlobalSystems.Globals
                     if (Functions.WeaponModel.SniperHeadshotOneshot)
                     {
                         target.Health = 0;
+                        Alt.Emit("GlobalSystems:OnPlayerSyncDamage", target, player);
+                        Alt.Emit("GlobalSystems:OnPlayerSyncDeath", target, player);
                         return;
                     }
                 }
@@ -70,6 +75,7 @@ namespace VnXGlobalSystems.Globals
 
                 float Damage = GetWeaponDamage(ConvertedWeapon); // GetWeaponDamage
                 Damage *= GetBoneDamageMul(bodypart); //Damage * BoneMule
+                Alt.Emit("GlobalSystems:OnPlayerSyncDamage", target, player);
 
                 if (target.Armor > 0)
                 {
@@ -88,8 +94,12 @@ namespace VnXGlobalSystems.Globals
                 {
                     target.Health -= (ushort)Damage;
                 }
+                if (target.Health <= 0)
+                {
+                    Alt.Emit("GlobalSystems:OnPlayerSyncDeath", target, player);
+                }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("WeaponDamage", ex); }
         }
     }
 }
