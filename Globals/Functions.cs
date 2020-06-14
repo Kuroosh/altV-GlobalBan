@@ -77,11 +77,17 @@ namespace VnXGlobalSystems.Globals
             GeneralModel = JsonSerializer.Deserialize<GeneralModel>(jsonString);
             //
             Console.ResetColor();
+            if (GeneralModel.VPNSystemActive) { Core.Debug.OutputLog("-------- [Settings] : VPN-Detection Active! --------", ConsoleColor.Green); }
+            else { Core.Debug.OutputLog("-------- [Settings] : VPN-Detection not Active! --------", ConsoleColor.Red); }
+            //
             if (GeneralModel.AnticheatSystemActive) { Core.Debug.OutputLog("-------- [Settings] : Anticheat Active! --------", ConsoleColor.Green); LoadAnticheatConfig(); }
             else { Core.Debug.OutputLog("-------- [Settings] : Anticheat Inactive! --------", ConsoleColor.Red); }
+            //
             if (GeneralModel.GlobalBanSystemActive) { Core.Debug.OutputLog("-------- [Settings] : Global-Ban-System Active! --------", ConsoleColor.Green); }
             else { Core.Debug.OutputLog("-------- [Settings] : Global-Ban-System not Active! --------", ConsoleColor.Red); }
+            //
             Core.Debug.OutputLog("-------- [VenoX Global Systems started] --------", ConsoleColor.DarkGreen);
+            //
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("------------------------------------------------------------------------");
             Console.ResetColor();

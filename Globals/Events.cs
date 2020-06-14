@@ -60,7 +60,7 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                Core.Main.CheckIP(player);
+                if (Functions.GeneralModel.VPNSystemActive) { Core.Main.CheckIP(player); }
                 player.Emit("VnXGlobalSystemsClient:GetDiscordID");
                 Functions.CheckPlayerGlobalBans(player);
                 Main.ConnectedPlayers.Add(player);

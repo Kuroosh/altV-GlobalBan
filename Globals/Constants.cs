@@ -6,8 +6,8 @@ namespace VnXGlobalSystems.Globals
 {
     public class Constants
     {
-        public const string VNXGLOBALSYSTEMSVERSION = "V.1.0.0";              //VenoX Global Systems Version.
-        public const int UPDATEINTERVAL = 50;                                //Time in MS.
+        public const string VNXGLOBALSYSTEMSVERSION = "V.1.0.1";              //VenoX Global Systems Version.
+        public const int UPDATEINTERVAL = 500;                               //Time in MS.
         public const int START_AFTER_CONNECT = 3;                           //Time in Seconds.
 
         public static bool AWESOME_SNAKE_MODE = false;                                                    // Beware of using this!! you could not be Awesome enough for that...
@@ -18,7 +18,7 @@ namespace VnXGlobalSystems.Globals
 
         // Cheat Check
         public const int TELEPORT_KICK_FOOT = 12;                            //Distance in Meter ( Kick after ...meter+ on Foot).
-        public const int TELEPORT_KICK_VEHICLE = 9;                         //Distance in Meter ( Kick after ...meter+ in Vehicle).
+        public const int TELEPORT_KICK_VEHICLE = 40;                         //Distance in Meter ( Kick after ...meter+ in Vehicle).
         public const int TELEPORT_KICK_FLYVEHICLE = 17;                    //Distance in Meter ( Kick after ...meter+ in Vehicle).
 
 
