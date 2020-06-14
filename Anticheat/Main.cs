@@ -106,7 +106,7 @@ namespace VnXGlobalSystems.Anticheat
                         playerClass.RemoveAllWeapons();
                         playerClass.KickPlayer(reason);
                     }
-                    else if (playerClass.NextWeaponTickCheck != DateTime.Now.AddSeconds(2)) { playerClass.NextWeaponTickCheck = DateTime.Now.AddSeconds(1); }
+                    else if (playerClass.NextWeaponTickCheck != DateTime.Now.AddSeconds(2)) { playerClass.NextWeaponTickCheck = DateTime.Now.AddSeconds(2); }
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : CheckWeapons", ex); }
