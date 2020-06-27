@@ -92,10 +92,11 @@ namespace VnXGlobalSystems.Anticheat
             try
             {
                 if (!Functions.AnticheatModel.CheckWeapons) { return; }
+                if (playerClass.Health <= 0 || playerClass.IsDead) { return; }
                 if (playerClass.CurrentWeapon == (uint)AltV.Net.Enums.WeaponModel.Fist || playerClass.CurrentWeapon == 0 || playerClass.LastWeapon == playerClass.CurrentWeapon) { return; }
                 if (!playerClass.Weapons.Contains(playerClass.CurrentWeapon))
                 {
-                    if (playerClass.NextWeaponTickCheck <= DateTime.Now)
+                    if (playerClass.WeaponTickCheck >= 3)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Core.Debug.OutputDebugString("[INFO] : " + playerClass.CurrentWeapon);
@@ -106,8 +107,10 @@ namespace VnXGlobalSystems.Anticheat
                         playerClass.RemoveAllWeapons();
                         playerClass.KickPlayer(reason);
                     }
-                    else if (playerClass.NextWeaponTickCheck != DateTime.Now.AddSeconds(2)) { playerClass.NextWeaponTickCheck = DateTime.Now.AddSeconds(2); }
+                    playerClass.WeaponTickCheck += 1;
+                    return;
                 }
+                playerClass.WeaponTickCheck = 0;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : CheckWeapons", ex); }
         }
