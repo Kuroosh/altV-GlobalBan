@@ -11,6 +11,7 @@ namespace VnXGlobalSystems.Models
         public Vector3 LastPosition { get; set; }
         public bool EntityIsFlying { get; set; }
         public bool EntityLogsCreated { get; set; }
+        public DateTime NextTickUpdate { get; set; }
         public DateTime NextFlyUpdate { get; set; }
         public int FlyTicks { get; set; }
         public List<uint> Weapons { get; set; }
@@ -26,6 +27,7 @@ namespace VnXGlobalSystems.Models
                 LastPosition = new Vector3();
                 EntityIsFlying = false;
                 NextFlyUpdate = DateTime.Now;
+                NextTickUpdate = DateTime.Now;
                 EntityLogsCreated = false;
                 FlyTicks = 0;
                 Weapons = new List<uint>();
@@ -40,10 +42,7 @@ namespace VnXGlobalSystems.Models
     {
         public IPlayer Create(IntPtr playerPointer, ushort id)
         {
-            try
-            {
-                return new PlayerModel(playerPointer, id);
-            }
+            try { return new PlayerModel(playerPointer, id); }
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerFactory:Create", ex); return null; }
         }
     }

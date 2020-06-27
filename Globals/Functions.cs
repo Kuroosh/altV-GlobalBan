@@ -128,6 +128,7 @@ namespace VnXGlobalSystems.Globals
                     if (Kick)
                     {
                         Core.Debug.OutputDebugString("VenoX Global Systems : " + player.Name + " could not Connect. [" + BanFoundBy + "]");
+                        Core.Debug.OutputDebugString("VenoX Global Systems : " + player.Name + " Ban Reason : [" + BanModel.PlayerReason + "].");
                         player.KickGlobal();
                     }
                     if (player.EntityLogsCreated) { return; }
@@ -135,9 +136,6 @@ namespace VnXGlobalSystems.Globals
                     {
                         string logname = "debug";
                         Core.Debug.WriteLogs(logname, "~~~~~~~~~~~~  [De La Info Spieler]    ~~~~~~~~~~~~~~");
-                        //Core.Debug.OutputDebugString("BanModel : DiscordID : " + BanModel.PlayerDiscordID + "| HardwareIdHash : " + BanModel.PlayerHardwareId + " | HardwareIdExHash : " + BanModel.PlayerHardwareIdExHash + " | Ip : " + BanModel.PlayerIPAdress + " | SocialClubId : " + BanModel.PlayerSocialClubId);
-                        //Core.Debug.OutputDebugString("--------------------------------");
-                        //Core.Debug.OutputDebugString("--------------------------------");
                         Core.Debug.WriteLogs(logname, "Name : " + player.Name);
                         Core.Debug.WriteLogs(logname, "HWID : " + Sha256(player.HardwareIdHash.ToString()));
                         Core.Debug.WriteLogs(logname, "HWID-ExHash : " + Sha256(player.HardwareIdExHash.ToString()));

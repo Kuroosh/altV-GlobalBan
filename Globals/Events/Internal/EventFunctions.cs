@@ -80,11 +80,15 @@ namespace VnXGlobalSystems.Globals
             try { if (player == null) { return; } player.RemoveAllWeapons(); player.Weapons.Clear(); }
             catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:RemoveAllPlayerWeapon", ex); }
         }
-
         public static void Position(this PlayerModel player, Vector3 position)
         {
             try { if (player == null) { return; } player.LastPosition = position; player.Position = position; }
             catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:Position", ex); }
+        }
+        public static void SetNextTick(this PlayerModel player)
+        {
+            try { if (player == null) { return; } player.NextTickUpdate = DateTime.Now.AddSeconds(Constants.PLAYER_TICK_INTERVAL); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:SetNextTick", ex); }
         }
     }
 }

@@ -17,5 +17,7 @@ namespace VnXGlobalSystems.Globals
         [ClientEvent("VnXGlobalSystems:PrivacyPolicy")]
         public static void SetPrivacyPolicy(PlayerModel player, int privacy) => player?.SetPrivacyPolicy(privacy);
 
+        [ClientEvent("VnXGlobalSystems:OnTickCall")]
+        public static void OnPlayerTickCall(PlayerModel player) => player?.SetNextTick();
     }
 }
