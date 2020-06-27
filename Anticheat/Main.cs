@@ -26,7 +26,7 @@ namespace VnXGlobalSystems.Anticheat
         public static void AntiGodmode(PlayerModel playerClass)
         {
             try { if (!Functions.AnticheatModel.AntiGodmode) { return; } playerClass.Emit("VnXGlobalSystemsClient:SetProofs"); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : NoRagdoll", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : NoGodMode", ex); }
         }
         public static void AntiFly(PlayerModel playerClass)
         {
