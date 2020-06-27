@@ -55,6 +55,7 @@ namespace VnXGlobalSystems.Globals
                 {
                     if (Constants.NEXT_INGAME_BAN_CHECK <= DateTime.Now) { CheckPlayerGlobalBans(player); Constants.NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(Constants.INGAME_BAN_REFRESH_RATE); }
                     if (!Functions.GeneralModel.AnticheatSystemActive) { return; }
+                    Anticheat.Main.CheckTick(player);
                     Anticheat.Main.AntiFly(player);
                     Anticheat.Main.AntiNoRagdoll(player);
                     Anticheat.Main.AntiGodmode(player);

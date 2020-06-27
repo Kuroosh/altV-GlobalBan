@@ -75,7 +75,7 @@ namespace VnXGlobalSystems.Globals
             catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:RemovePlayerWeapon", ex); }
         }
 
-        public static void RemoveAllPlayerWeapon(this PlayerModel player)
+        public static void RemoveAllPlayerWeapons(this PlayerModel player)
         {
             try { if (player == null) { return; } player.RemoveAllWeapons(); player.Weapons.Clear(); }
             catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:RemoveAllPlayerWeapon", ex); }

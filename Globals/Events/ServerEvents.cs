@@ -15,7 +15,7 @@ namespace VnXGlobalSystems.Globals
         public static void RemovePlayerWeapon(PlayerModel player, uint WeaponHash) => player.RemovePlayerWeapon(WeaponHash);
 
         [ServerEvent("GlobalSystems:RemoveAllPlayerWeapons")]
-        public static void RemoveAllPlayerWeapon(PlayerModel player) => player.RemoveAllPlayerWeapon();
+        public static void RemoveAllPlayerWeapon(PlayerModel player) => player.RemoveAllPlayerWeapons();
 
         ////////////////////////// Player Anticheat /////////////////////////////////////////////////////////
         [ServerEvent("GlobalSystems:PlayerPosition")]

@@ -27,7 +27,7 @@ namespace VnXGlobalSystems.Models
                 LastPosition = new Vector3();
                 EntityIsFlying = false;
                 NextFlyUpdate = DateTime.Now;
-                NextTickUpdate = DateTime.Now;
+                NextTickUpdate = DateTime.Now.AddSeconds(15);
                 EntityLogsCreated = false;
                 FlyTicks = 0;
                 Weapons = new List<uint>();
