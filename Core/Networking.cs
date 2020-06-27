@@ -58,11 +58,11 @@ namespace VnXGlobalSystems.Core
                 if (obj.Block == "1")
                 {
                     Core.Debug.WriteLogs("vpn", "~~~~~ VPN : [True] ~~~~~");
+                    playerClass.Kick("VPN");
                 }
                 else
                 {
                     Core.Debug.WriteLogs("vpn", "~~~~~ VPN : [False] ~~~~~");
-                    playerClass.Kick("VPN");
                 }
                 Core.Debug.WriteLogs("vpn", "~~~~~ Block : " + obj.Block + " ~~~~~");
                 Core.Debug.WriteLogs("vpn", "~~~~~ Hostname : " + obj.Hostname + " ~~~~~");
