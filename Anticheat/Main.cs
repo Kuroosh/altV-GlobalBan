@@ -111,5 +111,18 @@ namespace VnXGlobalSystems.Anticheat
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : CheckWeapons", ex); }
         }
+        public static void CheckTick(PlayerModel playerClass)
+        {
+            try
+            {
+                if (playerClass.NextTickUpdate <= DateTime.Now)
+                {
+                    playerClass.NextTickUpdate = DateTime.Now.AddSeconds(10); // Just to fix the spam.
+                    playerClass.KickPlayer("Connection to VenoX-Global-Systems lost.");
+                    Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Tick-Anticheat! [" + playerClass.NextTickUpdate + "]");
+                }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : CheckTick", ex); }
+        }
     }
 }
