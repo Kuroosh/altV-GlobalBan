@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
 using System;
 using VnXGlobalSystems.Models;
 
@@ -38,6 +39,13 @@ namespace VnXGlobalSystems.Globals
         {
             try { if (target == null) { return; } if (!Functions.AnticheatModel.AntiGodmode) { return; } WeaponSync.WeaponDamage(player, target, weapon, dmg, offset, bodypart); Alt.Emit("GlobalSystems:OnEntityHit", player, target); }
             catch (Exception ex) { Core.Debug.CatchExceptions("WeaponDamage", ex); }
+        }
+
+        [ScriptEvent(ScriptEventType.PlayerDead)]
+        public static void OnPlayerDeath(PlayerModel player, IEntity entity, uint reason)
+        {
+            try { player.RemoveAllPlayerWeapons(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerDeath", ex); }
         }
     }
 }
