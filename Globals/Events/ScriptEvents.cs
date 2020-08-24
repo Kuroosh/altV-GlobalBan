@@ -35,9 +35,23 @@ namespace VnXGlobalSystems.Globals
         }
 
         [ScriptEvent(ScriptEventType.WeaponDamage)]
-        public static void WeaponDamage(PlayerModel player, PlayerModel target, uint weapon, ushort dmg, Position offset, BodyPart bodypart)
+        public static void WeaponDamage(PlayerModel player, IEntity entity, uint weapon, ushort dmg, Position offset, BodyPart bodypart)
         {
-            try { if (target == null) { return; } if (!Functions.AnticheatModel.AntiGodmode) { return; } WeaponSync.WeaponDamage(player, target, weapon, dmg, offset, bodypart); Alt.Emit("GlobalSystems:OnEntityHit", player, target); }
+            try
+            {
+                Core.Debug.OutputDebugString(" Entity : " + entity);
+                if (entity is PlayerModel target)
+                {
+                    if (target == null) { return; }
+                    if (!Functions.AnticheatModel.AntiGodmode) { return; }
+                    WeaponSync.WeaponDamage(player, target, weapon, dmg, offset, bodypart);
+                    Alt.Emit("GlobalSystems:OnEntityHit", player, target);
+                }
+                else if (entity is VehicleModel vehicle)
+                {
+                    WeaponSync.OnVehicleDamage(player, vehicle, weapon);
+                }
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions("WeaponDamage", ex); }
         }
 
@@ -47,5 +61,6 @@ namespace VnXGlobalSystems.Globals
             try { player.RemoveAllPlayerWeapons(); }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerDeath", ex); }
         }
+
     }
 }

@@ -90,5 +90,11 @@ namespace VnXGlobalSystems.Globals
             try { if (player == null) { return; } player.NextTickUpdate = DateTime.Now.AddSeconds(Constants.PLAYER_TICK_INTERVAL); }
             catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:SetNextTick", ex); }
         }
+
+        public static void OnVehicleDamage(this PlayerModel player, VehicleModel vehicle)
+        {
+            try { if (player == null) { return; } WeaponSync.OnVehicleDamage(player, vehicle, player.CurrentWeapon); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:OnVehicleDamage", ex); }
+        }
     }
 }

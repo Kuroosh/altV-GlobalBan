@@ -68,5 +68,18 @@ namespace VnXGlobalSystems.Globals
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("WeaponDamage", ex); }
         }
+
+        public static void OnVehicleDamage(PlayerModel player, VehicleModel vehicle, uint weapon)
+        {
+            try
+            {
+                AltV.Net.Enums.WeaponModel ConvertedWeapon = (AltV.Net.Enums.WeaponModel)weapon;
+                uint Damage = (uint)GetWeaponDamage(ConvertedWeapon);
+                if (vehicle.GlobalSystemsHealth <= 0) { return; }
+                vehicle.GlobalSystemsHealth -= Damage;
+                Alt.Emit("GlobalSystems:OnVehicleSyncDamage", player, vehicle, Damage);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnVehicleDamage", ex); }
+        }
     }
 }

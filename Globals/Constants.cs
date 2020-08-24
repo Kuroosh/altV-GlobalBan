@@ -6,15 +6,15 @@ namespace VnXGlobalSystems.Globals
 {
     public class Constants
     {
-        public const string VNXGLOBALSYSTEMSVERSION = "V.1.1.4";             //VenoX Global Systems Version.
-        public const int UPDATEINTERVAL = 250;                               //Time in MS - Don't do it under 250... it will cause alot of Weapon-Anticheat sync bugs.
-        public const int START_AFTER_CONNECT = 3;                            //Time in Seconds.
-        public const int PLAYER_TICK_INTERVAL = 5;                           //Time in Seconds to check if Clientside Connection exists.
+        public const string VNXGLOBALSYSTEMSVERSION = "V.1.1.5";                //VenoX Global Systems Version.
+        public const int UPDATEINTERVAL = 250;                                  //Time in MS - Don't do it under 250... it will cause alot of Weapon-Anticheat sync bugs.
+        public const int START_AFTER_CONNECT = 3;                               //Time in Seconds.
+        public const int PLAYER_TICK_INTERVAL = 30;                             //Time in Seconds to check if Clientside Connection exists.
 
-        public static bool AWESOME_SNAKE_MODE = true;                                                    // Beware of using this!! you could not be Awesome enough for that...
+        public static bool AWESOME_SNAKE_MODE = false;                                                   // Beware of using this!! you could not be Awesome enough for that...
         public static int BANLIST_REFRESH_RATE = 30;                                                     //Time in Minutes
         public static int INGAME_BAN_REFRESH_RATE = 1;                                                   //Time in Minutes
-        public static DateTime NEXT_BANLIST_REFRESH = DateTime.Now.AddMinutes(BANLIST_REFRESH_RATE);    //Last Time Refreshed/Renewed the Banlist.
+        public static DateTime NEXT_BANLIST_REFRESH = DateTime.Now.AddMinutes(BANLIST_REFRESH_RATE);     //Last Time Refreshed/Renewed the Banlist.
         public static DateTime NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(INGAME_BAN_REFRESH_RATE);    //Last Time Refreshed/Renewed the Banlist.
 
         // Cheat Check

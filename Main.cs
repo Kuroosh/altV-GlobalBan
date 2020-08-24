@@ -12,6 +12,10 @@ namespace VnXGlobalSystems
         {
             return new MyPlayerFactory();
         }
+        public override IEntityFactory<IVehicle> GetVehicleFactory()
+        {
+            return new MyVehicleFactory();
+        }
         public override void OnStart()
         {
             Globals.Events.OnResourceStart();

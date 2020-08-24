@@ -9,15 +9,18 @@ namespace VnXGlobalSystems.Globals
         /* Client Events */
 
         [ClientEvent("VnXGlobalSystems:SetDiscordID")]
-        public static void UpdateDiscordInfo(PlayerModel player, string DiscordID) => player?.UpdateDiscordInfo(DiscordID);
+        public static void UpdateDiscordInfo(PlayerModel player, string DiscordID) => player.UpdateDiscordInfo(DiscordID);
 
         [ClientEvent("VnXGlobalSystems:KickPlayer")]
-        public static void KickPlayer(PlayerModel player) => player?.Kick(reason: String.Empty);
+        public static void KickPlayer(PlayerModel player) => player.Kick(reason: String.Empty);
 
         [ClientEvent("VnXGlobalSystems:PrivacyPolicy")]
-        public static void SetPrivacyPolicy(PlayerModel player, int privacy) => player?.SetPrivacyPolicy(privacy);
+        public static void SetPrivacyPolicy(PlayerModel player, int privacy) => player.SetPrivacyPolicy(privacy);
 
         [ClientEvent("VnXGlobalSystems:OnTickCall")]
-        public static void OnPlayerTickCall(PlayerModel player) => player?.SetNextTick();
+        public static void OnPlayerTickCall(PlayerModel player) => player.SetNextTick();
+
+        [ClientEvent("VnXGlobalSystems:OnVehicleWeaponHit")]
+        public static void OnPlayerVehicleWeaponHit(PlayerModel player, VehicleModel vehicle) => player.OnVehicleDamage(vehicle);
     }
 }

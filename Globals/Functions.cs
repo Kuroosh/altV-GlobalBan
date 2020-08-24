@@ -186,7 +186,7 @@ namespace VnXGlobalSystems.Globals
                 { AltV.Net.Enums.WeaponModel.JerryCan, WeaponModel.JerryCan },
                 { AltV.Net.Enums.WeaponModel.StunGun, WeaponModel.StunGun },
                 { AltV.Net.Enums.WeaponModel.StoneHatchet, WeaponModel.StoneHatchet },
-                { AltV.Net.Enums.WeaponModel.AussaultRifleMkII, WeaponModel.AussaultRifleMkII },
+                { AltV.Net.Enums.WeaponModel.AssaultRifleMkII, WeaponModel.AussaultRifleMkII },
                 { AltV.Net.Enums.WeaponModel.HeavyShotgun, WeaponModel.HeavyShotgun },
                 { AltV.Net.Enums.WeaponModel.Minigun, WeaponModel.Minigun },
                 { AltV.Net.Enums.WeaponModel.GolfClub, WeaponModel.GolfClub },
