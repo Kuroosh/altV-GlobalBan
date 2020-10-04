@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace VnXGlobalSystems.Core
@@ -12,15 +13,15 @@ namespace VnXGlobalSystems.Core
         {
             try
             {
-                if (!DEBUGMODEENABLED) { return; }
-                Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | : " + text);
+                if (!DEBUGMODEENABLED) return;
+                Console.WriteLine("[" + DateTime.Now.Hour + " : " + DateTime.Now.Minute + " ] : " + text);
             }
             catch { }
         }
 
-        public static void CatchExceptions(string FunctionName, Exception ex)
+        public static void CatchExceptions(Exception ex, [CallerMemberName] string FunctionName = "")
         {
-            if (!DEBUGMODEENABLED) { return; }
+            if (!DEBUGMODEENABLED) return;
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.Message);
             Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.StackTrace);
@@ -86,7 +87,7 @@ namespace VnXGlobalSystems.Core
                 content = content.Remove(content.Length - 1) + "," + strLog + "]";
                 File.WriteAllText(logFilePath, content);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("WriteJsonString", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

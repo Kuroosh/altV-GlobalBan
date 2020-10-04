@@ -36,7 +36,7 @@ namespace VnXGlobalSystems.Models
                 Team = 0;
                 DiscordID = "";
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class MyPlayerFactory : IEntityFactory<IPlayer>
@@ -44,7 +44,7 @@ namespace VnXGlobalSystems.Models
         public IPlayer Create(IntPtr playerPointer, ushort id)
         {
             try { return new PlayerModel(playerPointer, id); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerFactory:Create", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
     }
 }

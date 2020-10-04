@@ -11,31 +11,35 @@ namespace VnXGlobalSystems.Anticheat
             try
             {
                 if (Constants.Helicopter.Contains((AltV.Net.Enums.VehicleModel)player.Vehicle.Model) || Constants.Planes.Contains((AltV.Net.Enums.VehicleModel)player.Vehicle.Model))
-                {
                     return Constants.TELEPORT_KICK_FLYVEHICLE;
-                }
-                else { return Constants.TELEPORT_KICK_VEHICLE; }
+                return Constants.TELEPORT_KICK_VEHICLE;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("GetMaxTeleportVehicleDistance", ex); return Constants.TELEPORT_KICK_VEHICLE; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return Constants.TELEPORT_KICK_VEHICLE; }
         }
         public static void AntiNoRagdoll(PlayerModel playerClass)
         {
-            try { if (!Functions.AnticheatModel.AntiNoRagdoll) { return; } playerClass.Emit("VnXGlobalSystemsClient:SetPedCanRagdoll", true); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : NoRagdoll", ex); }
+            try
+            {
+                if (!Functions.AnticheatModel.AntiNoRagdoll) return;
+                playerClass.Emit("VnXGlobalSystemsClient:SetPedCanRagdoll", true);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void AntiGodmode(PlayerModel playerClass)
         {
-            try { if (!Functions.AnticheatModel.AntiGodmode) { return; } playerClass.Emit("VnXGlobalSystemsClient:SetProofs"); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : NoGodMode", ex); }
+            try
+            {
+                if (!Functions.AnticheatModel.AntiGodmode) return;
+                playerClass.Emit("VnXGlobalSystemsClient:SetProofs");
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void AntiFly(PlayerModel playerClass)
         {
             try
             {
-                if (!Functions.AnticheatModel.AntiFly) { return; }
-                if (playerClass.IsInVehicle) { return; }
-                else if (playerClass.NextFlyUpdate >= DateTime.Now) { return; }
-                else if (playerClass.Position.Z > 150) { return; }
+                if (!Functions.AnticheatModel.AntiFly) return;
+                if (playerClass.IsInVehicle || playerClass.NextFlyUpdate >= DateTime.Now || playerClass.Position.Z > 150) return;
                 if (playerClass.EntityIsFlying)
                 {
                     if (playerClass.FlyTicks > 5)
@@ -49,7 +53,7 @@ namespace VnXGlobalSystems.Anticheat
                     playerClass.NextFlyUpdate = DateTime.Now.AddSeconds(3);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : AntiFly", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void CheckTeleport(PlayerModel playerClass)
         {
@@ -85,15 +89,15 @@ namespace VnXGlobalSystems.Anticheat
                 }
                 playerClass.LastPosition = playerClass.Position;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : CheckTeleport", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void CheckWeapons(PlayerModel playerClass)
         {
             try
             {
-                if (!Functions.AnticheatModel.CheckWeapons) { return; }
-                if (playerClass.Health <= 0 || playerClass.IsDead) { return; }
-                if (playerClass.CurrentWeapon == (uint)AltV.Net.Enums.WeaponModel.Fist || playerClass.CurrentWeapon == 0 || playerClass.LastWeapon == playerClass.CurrentWeapon) { return; }
+                if (!Functions.AnticheatModel.CheckWeapons) return;
+                if (playerClass.Health <= 0 || playerClass.IsDead) return;
+                if (playerClass.CurrentWeapon == (uint)AltV.Net.Enums.WeaponModel.Fist || playerClass.CurrentWeapon == 0 || playerClass.LastWeapon == playerClass.CurrentWeapon) return;
                 if (!playerClass.Weapons.Contains(playerClass.CurrentWeapon))
                 {
                     if (playerClass.WeaponTickCheck >= 3)
@@ -112,7 +116,7 @@ namespace VnXGlobalSystems.Anticheat
                 }
                 playerClass.WeaponTickCheck = 0;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : CheckWeapons", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void CheckTick(PlayerModel playerClass)
         {
@@ -125,7 +129,7 @@ namespace VnXGlobalSystems.Anticheat
                     Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Tick-Anticheat! [" + playerClass.NextTickUpdate + "]");
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("[Anticheat-Error] : CheckTick", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

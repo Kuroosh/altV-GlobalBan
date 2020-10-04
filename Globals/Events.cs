@@ -49,7 +49,7 @@ namespace VnXGlobalSystems.Globals
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerAcceptedPrivacyPolicy", ex); return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
     }
 }

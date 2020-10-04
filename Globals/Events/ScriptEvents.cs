@@ -24,14 +24,14 @@ namespace VnXGlobalSystems.Globals
                 }
                 Alt.Emit("GlobalSystems:PlayerReady", player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerConnect", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
         public static void OnPlayerDisconnect(PlayerModel player, string reason)
         {
             try { Main.ConnectedPlayers.Remove(player); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerDisconnect", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ScriptEvent(ScriptEventType.WeaponDamage)]
@@ -52,14 +52,14 @@ namespace VnXGlobalSystems.Globals
                     WeaponSync.OnVehicleDamage(player, vehicle, weapon);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("WeaponDamage", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]
         public static void OnPlayerDeath(PlayerModel player, IEntity entity, uint reason)
         {
             try { player.RemoveAllPlayerWeapons(); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerDeath", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
     }

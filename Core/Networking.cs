@@ -75,7 +75,7 @@ namespace VnXGlobalSystems.Core
                     Core.Debug.WriteLogs("vpn", "------------------- VPN INFO -------------------");
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CheckIP", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

@@ -39,7 +39,7 @@ namespace VnXGlobalSystems.Globals
                 if (AnticheatModel.CheckWeapons) { Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [ON] --------", ConsoleColor.Green); }
                 else { Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [OFF] --------", ConsoleColor.Red); }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Anticheat-Error", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void OnUpdate(Object unused)
         {
@@ -63,7 +63,7 @@ namespace VnXGlobalSystems.Globals
                     Anticheat.Main.CheckWeapons(player);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("VnX-Global-Systems:OnUpdate", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void LoadMainFunctions()
         {

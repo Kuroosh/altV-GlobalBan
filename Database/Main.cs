@@ -57,7 +57,7 @@ namespace VnXGlobalSystems.Database
                 GlobalBannedPlayers = LoadBanlist();
                 Core.Debug.OutputLog("[Global Systems] : Updated Global-Banlist.", ConsoleColor.White);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global Systems : RefreshBanlist", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         private static List<GlobalBanModel> LoadBanlist()
@@ -78,7 +78,7 @@ namespace VnXGlobalSystems.Database
                 }
                 return Banlist;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("LoadBanlist", ex); return new List<GlobalBanModel>(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new List<GlobalBanModel>(); }
         }
     }
 }

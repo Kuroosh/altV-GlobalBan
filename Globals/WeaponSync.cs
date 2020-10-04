@@ -66,7 +66,7 @@ namespace VnXGlobalSystems.Globals
                     target.Health -= (ushort)Damage;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("WeaponDamage", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnVehicleDamage(PlayerModel player, VehicleModel vehicle, uint weapon)
@@ -79,7 +79,7 @@ namespace VnXGlobalSystems.Globals
                 vehicle.GlobalSystemsHealth -= Damage;
                 Alt.Emit("GlobalSystems:OnVehicleSyncDamage", player, vehicle, Damage);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnVehicleDamage", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

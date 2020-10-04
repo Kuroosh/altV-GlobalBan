@@ -13,7 +13,7 @@ namespace VnXGlobalSystems.Globals
         public static void SetPlayerTeam(this PlayerModel player, int TeamId)
         {
             try { player.Team = TeamId; }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:SetPlayerTeam", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SetPrivacyPolicy(this PlayerModel player, int privacy)
         {
@@ -41,17 +41,17 @@ namespace VnXGlobalSystems.Globals
                         return;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:SetPrivacyPolicy", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void KickPlayer(this PlayerModel player, string reason)
         {
             try { player.Emit("VnXGlobalSystemsClient:Kick", reason); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:Kick", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void KickGlobal(this PlayerModel player)
         {
             try { player.Emit("VnXGlobalSystemsClient:KickGlobal"); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:KickGlobal", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void UpdateDiscordInfo(this PlayerModel player, string DiscordID)
         {
@@ -61,40 +61,40 @@ namespace VnXGlobalSystems.Globals
                 player.DiscordID = DiscordID;
                 Functions.CheckPlayerGlobalBans(player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:UpdateDiscordInfo", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void GivePlayerWeapon(this PlayerModel player, uint WeaponHash, int ammo, bool selectWeapon)
         {
             try { if (player == null) { return; } player.Weapons.Add(WeaponHash); player.GiveWeapon(WeaponHash, ammo, selectWeapon); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:GivePlayerWeapon", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void RemovePlayerWeapon(this PlayerModel player, uint WeaponHash)
         {
             try { if (player == null) { return; } player.RemoveWeapon(WeaponHash); player.Weapons.Remove(WeaponHash); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:RemovePlayerWeapon", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void RemoveAllPlayerWeapons(this PlayerModel player)
         {
             try { if (player == null) { return; } player.RemoveAllWeapons(); player.Weapons.Clear(); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:RemoveAllPlayerWeapon", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void Position(this PlayerModel player, Vector3 position)
         {
             try { if (player == null) { return; } player.LastPosition = position; player.Position = position; }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:Position", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SetNextTick(this PlayerModel player)
         {
             try { if (player == null) { return; } player.NextTickUpdate = DateTime.Now.AddSeconds(Constants.PLAYER_TICK_INTERVAL); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:SetNextTick", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnVehicleDamage(this PlayerModel player, VehicleModel vehicle)
         {
             try { if (player == null) { return; } WeaponSync.OnVehicleDamage(player, vehicle, player.CurrentWeapon); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Global-Systems:OnVehicleDamage", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }
