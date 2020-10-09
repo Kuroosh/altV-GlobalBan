@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -24,20 +25,20 @@ namespace VnXGlobalSystems.Globals
                 AnticheatModel = JsonSerializer.Deserialize<AnticheatModel>(jsonString);
                 Console.ResetColor();
                 //Fly Notify
-                if (AnticheatModel.AntiFly) { Core.Debug.OutputLog("-------- Global Systems AntiFly = [ON] --------", ConsoleColor.Green); }
-                else { Core.Debug.OutputLog("-------- Global Systems AntiFly = [OFF] --------", ConsoleColor.Red); }
+                if (AnticheatModel.AntiFly) Core.Debug.OutputLog("-------- Global Systems AntiFly = [ON] --------", ConsoleColor.Green);
+                else Core.Debug.OutputLog("-------- Global Systems AntiFly = [OFF] --------", ConsoleColor.Red);
                 //Ragdoll Notify
-                if (AnticheatModel.AntiNoRagdoll) { Core.Debug.OutputLog("-------- Global Systems AntiNoRagdoll = [ON] --------", ConsoleColor.Green); }
-                else { Core.Debug.OutputLog("-------- Global Systems AntiNoRagdoll = [OFF] --------", ConsoleColor.Red); }
+                if (AnticheatModel.AntiNoRagdoll) Core.Debug.OutputLog("-------- Global Systems AntiNoRagdoll = [ON] --------", ConsoleColor.Green);
+                else Core.Debug.OutputLog("-------- Global Systems AntiNoRagdoll = [OFF] --------", ConsoleColor.Red);
                 //Godmode Notify
                 if (AnticheatModel.AntiGodmode) { Core.Debug.OutputLog("-------- Global Systems AntiGodmode = [ON] --------", ConsoleColor.Green); LoadWeaponDamageConfig(); }
-                else { Core.Debug.OutputLog("-------- Global Systems AntiGodmode = [OFF] --------", ConsoleColor.Red); }
+                else Core.Debug.OutputLog("-------- Global Systems AntiGodmode = [OFF] --------", ConsoleColor.Red);
                 //CheckTeleport Notify
-                if (AnticheatModel.CheckTeleport) { Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [ON] --------", ConsoleColor.Green); }
-                else { Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [OFF] --------", ConsoleColor.Red); }
+                if (AnticheatModel.CheckTeleport) Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [ON] --------", ConsoleColor.Green);
+                else Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [OFF] --------", ConsoleColor.Red);
                 //CheckWeapons Notify
-                if (AnticheatModel.CheckWeapons) { Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [ON] --------", ConsoleColor.Green); }
-                else { Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [OFF] --------", ConsoleColor.Red); }
+                if (AnticheatModel.CheckWeapons) Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [ON] --------", ConsoleColor.Green);
+                else Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [OFF] --------", ConsoleColor.Red);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -47,14 +48,15 @@ namespace VnXGlobalSystems.Globals
             {
                 if (Constants.NEXT_BANLIST_REFRESH <= DateTime.Now)
                 {
+                    if (!Functions.GeneralModel.GlobalBanSystemActive) return;
                     Core.Debug.OutputLog("[Global Systems] : Trying to Update Global-Banlist.", ConsoleColor.White);
                     Database.Main.RefreshBanlist();
                     Constants.NEXT_BANLIST_REFRESH = DateTime.Now.AddMinutes(Constants.BANLIST_REFRESH_RATE);
                 }
-                foreach (PlayerModel player in Main.ConnectedPlayers)
+                foreach (PlayerModel player in Main.ConnectedPlayers.ToList())
                 {
                     if (Constants.NEXT_INGAME_BAN_CHECK <= DateTime.Now) { CheckPlayerGlobalBans(player); Constants.NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(Constants.INGAME_BAN_REFRESH_RATE); }
-                    if (!Functions.GeneralModel.AnticheatSystemActive) { return; }
+                    if (!Functions.GeneralModel.AnticheatSystemActive) return;
                     Anticheat.Main.CheckTick(player);
                     Anticheat.Main.AntiFly(player);
                     Anticheat.Main.AntiNoRagdoll(player);
@@ -108,16 +110,14 @@ namespace VnXGlobalSystems.Globals
             byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(randomString));
             StringBuilder stringbuilder = new StringBuilder();
             for (int i = 0; i < bytes.Length; i++)
-            {
                 stringbuilder.Append(bytes[i].ToString("x2"));
-            }
             return stringbuilder.ToString();
         }
         public static void CheckPlayerGlobalBans(PlayerModel player)
         {
             try
             {
-                foreach (GlobalBanModel BanModel in Database.Main.GlobalBannedPlayers)
+                foreach (GlobalBanModel BanModel in Database.Main.GlobalBannedPlayers.ToList())
                 {
                     string BanFoundBy = "";
                     bool Kick = false;
@@ -132,7 +132,7 @@ namespace VnXGlobalSystems.Globals
                         Core.Debug.OutputDebugString("VenoX Global Systems : " + player.Name + " Ban Reason : [" + BanModel.PlayerReason + "].");
                         player.KickGlobal();
                     }
-                    if (player.EntityLogsCreated) { return; }
+                    if (player.EntityLogsCreated) return;
                     if (Constants.AWESOME_SNAKE_MODE)
                     {
                         string logname = "debug";
@@ -157,12 +157,16 @@ namespace VnXGlobalSystems.Globals
             WeaponModel = JsonSerializer.Deserialize<WeaponModel>(jsonString);
             Console.ResetColor();
             Core.Debug.OutputLog("~~~~~~~~~~~~  [Weapon-Config]    ~~~~~~~~~~~~~~", ConsoleColor.Cyan);
-            if (WeaponModel.Headshot) { Core.Debug.OutputLog("-------- Global Systems Headshot = [ON] --------", ConsoleColor.Green); }
-            else { Core.Debug.OutputLog("-------- Global Systems Headshot = [OFF] --------", ConsoleColor.Red); }
-            if (WeaponModel.TeamDamage) { Core.Debug.OutputLog("-------- Global Systems Team-Damage = [ON] --------", ConsoleColor.Green); }
-            else { Core.Debug.OutputLog("-------- Global Systems Team-Damage = [OFF] --------", ConsoleColor.Red); }
-            if (WeaponModel.HeadDamage) { Core.Debug.OutputLog("-------- Global Systems HeadDamage = [ON] --------", ConsoleColor.Green); }
-            else { Core.Debug.OutputLog("-------- Global Systems HeadDamage = [OFF] --------", ConsoleColor.Red); }
+
+            if (WeaponModel.Headshot) Core.Debug.OutputLog("-------- Global Systems Headshot = [ON] --------", ConsoleColor.Green);
+            else Core.Debug.OutputLog("-------- Global Systems Headshot = [OFF] --------", ConsoleColor.Red);
+
+            if (WeaponModel.TeamDamage) Core.Debug.OutputLog("-------- Global Systems Team-Damage = [ON] --------", ConsoleColor.Green);
+            else Core.Debug.OutputLog("-------- Global Systems Team-Damage = [OFF] --------", ConsoleColor.Red);
+
+            if (WeaponModel.HeadDamage) Core.Debug.OutputLog("-------- Global Systems HeadDamage = [ON] --------", ConsoleColor.Green);
+            else Core.Debug.OutputLog("-------- Global Systems HeadDamage = [OFF] --------", ConsoleColor.Red);
+
             Constants.DamageList = new Dictionary<AltV.Net.Enums.WeaponModel, float>
             {
                 { AltV.Net.Enums.WeaponModel.SniperRifle, WeaponModel.SniperRifle },
@@ -257,12 +261,25 @@ namespace VnXGlobalSystems.Globals
                 { AltV.Net.Enums.WeaponModel.CarbineRifleMkII, WeaponModel.CarbineRifleMkII },
                 { AltV.Net.Enums.WeaponModel.TearGas, WeaponModel.TearGas },
             };
-            if (!Constants.AWESOME_SNAKE_MODE) { return; }
+            if (!Constants.AWESOME_SNAKE_MODE) return;
             int c = 0;
             foreach (var weaponmodel in Constants.DamageList)
             {
                 Core.Debug.OutputDebugString("[" + ++c + "]--- WeaponModel loaded " + weaponmodel.Key + " | " + weaponmodel.Value + " ---");
             }
+        }
+        public static void SaveScreenBase64(PlayerModel player, string Base64)
+        {
+            try
+            {
+                //string logFilePath = Alt.Server.Resource.Path + "/settings/debug/" + player.HardwareIdHash + "-" + DateTime.Now.ToString().Replace(" ", "") + ".png";
+                string logFilePath = Alt.Server.Resource.Path + "/settings/debug/" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "-" + player.HardwareIdHash + ".png";
+                byte[] bytes = Convert.FromBase64String(Base64);
+                using FileStream imageFile = new FileStream(logFilePath.Replace(@"\", @"\\"), FileMode.Create);
+                imageFile.Write(bytes, 0, bytes.Length);
+                imageFile.Flush();
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

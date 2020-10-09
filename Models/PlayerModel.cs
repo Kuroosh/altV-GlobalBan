@@ -20,6 +20,7 @@ namespace VnXGlobalSystems.Models
         public uint LastWeapon { get; set; }
         public int Team { get; set; }
         public string DiscordID { get; set; }
+        public string Screenshot { get; set; }
         public PlayerModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
         {
             try
@@ -35,6 +36,7 @@ namespace VnXGlobalSystems.Models
                 WeaponTickCheck = 0;
                 Team = 0;
                 DiscordID = "";
+                Screenshot = "";
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
