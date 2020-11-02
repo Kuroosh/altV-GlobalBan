@@ -30,7 +30,7 @@ namespace VnXGlobalSystems.Anticheat
             try
             {
                 if (!Functions.AnticheatModel.AntiGodmode) return;
-                playerClass.Emit("VnXGlobalSystemsClient:SetProofs");
+                playerClass.Emit("VnXGlobalSystemsClient:SetProofs", playerClass.Proofs.BulletProof, playerClass.Proofs.FireProof, playerClass.Proofs.ExplosionProof, playerClass.Proofs.CollisionProof, playerClass.Proofs.MeleeProof, playerClass.Proofs.DrownProof);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

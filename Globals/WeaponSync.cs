@@ -26,8 +26,8 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                if (target == player) { return; }
-                if (!Functions.WeaponModel.TeamDamage && target.Team == player.Team) { return; }
+                if (target == player) return;
+                if (!Functions.WeaponModel.TeamDamage && target.Team == player.Team) return;
                 if (target.Health <= 0 || target.IsDead || player.Health <= 0 || player.IsDead) { return; }
                 if (Functions.AnticheatModel.CheckWeapons) { if (!player.Weapons.Contains(weapon) && weapon != (uint)AltV.Net.Enums.WeaponModel.Fist && weapon != 0) { return; } }
                 if (Functions.WeaponModel.Headshot && bodypart == BodyPart.Head)
@@ -54,7 +54,6 @@ namespace VnXGlobalSystems.Globals
 
                 float Damage = GetWeaponDamage(ConvertedWeapon); // GetWeaponDamage
                 Damage *= GetBoneDamageMul(bodypart); //Damage * BoneMule
-                Alt.Emit("GlobalSystems:OnPlayerSyncDamage", target, player, Damage);
                 if (target.Armor > 0)
                 {
                     int Adiff = target.Armor - Convert.ToInt32(Damage);
@@ -65,6 +64,7 @@ namespace VnXGlobalSystems.Globals
                 {
                     target.Health -= (ushort)Damage;
                 }
+                Alt.Emit("GlobalSystems:OnPlayerSyncDamage", target, player, Damage);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

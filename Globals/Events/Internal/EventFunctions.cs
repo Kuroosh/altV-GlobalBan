@@ -10,6 +10,19 @@ namespace VnXGlobalSystems.Globals
     {
         /* Event Functions */
 
+        public static void SetPlayerProofs(this PlayerModel player, bool BulletProof, bool FireProof, bool ExplosionProof, bool CollisionProof, bool MeleeProof, bool DrownProof)
+        {
+            try
+            {
+                player.Proofs.BulletProof = BulletProof;
+                player.Proofs.FireProof = FireProof;
+                player.Proofs.ExplosionProof = ExplosionProof;
+                player.Proofs.CollisionProof = CollisionProof;
+                player.Proofs.MeleeProof = MeleeProof;
+                player.Proofs.DrownProof = DrownProof;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
         public static void SetPlayerTeam(this PlayerModel player, int TeamId)
         {
             try { player.Team = TeamId; }
@@ -87,7 +100,11 @@ namespace VnXGlobalSystems.Globals
         }
         public static void SetNextTick(this PlayerModel player)
         {
-            try { if (player == null) { return; } player.NextTickUpdate = DateTime.Now.AddSeconds(Constants.PLAYER_TICK_INTERVAL); }
+            try
+            {
+                if (player == null) return;
+                player.NextTickUpdate = DateTime.Now.AddSeconds(Constants.PLAYER_TICK_INTERVAL);
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 

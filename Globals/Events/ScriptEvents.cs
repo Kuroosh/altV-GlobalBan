@@ -39,7 +39,7 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                Core.Debug.OutputDebugString(" Entity : " + entity);
+                //Core.Debug.OutputDebugString(" Entity : " + entity);
                 if (entity is PlayerModel target)
                 {
                     if (target == null) { return; }

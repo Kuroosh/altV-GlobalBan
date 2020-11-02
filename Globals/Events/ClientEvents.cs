@@ -12,15 +12,14 @@ namespace VnXGlobalSystems.Globals
         public static void UpdateDiscordInfo(PlayerModel player, string DiscordID) => player.UpdateDiscordInfo(DiscordID);
 
         [ClientEvent("VnXGlobalSystems:KickPlayer")]
-        public static void KickPlayer(PlayerModel player, string[] Base64Objs)
+        public static void KickPlayer(PlayerModel player, string Base64, string Reason = "")
         {
-            string Base64 = String.Join(String.Empty, Base64Objs);
-            player.Screenshot = Base64;
-            Core.Debug.OutputDebugString(player.Name + " Got Kicked");
-            Functions.SaveScreenBase64(player, player.Screenshot);
-            player.Kick(reason: String.Empty);
-            Core.Debug.OutputDebugString(player.Screenshot);
-            player.Screenshot = "";
+            try
+            {
+                Functions.SaveScreenBase64(player, Base64);
+                player.Kick(Reason);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ClientEvent("VnXGlobalSystems:PrivacyPolicy")]

@@ -6,8 +6,27 @@ using System.Numerics;
 
 namespace VnXGlobalSystems.Models
 {
+    public class Proofs
+    {
+        //bulletProof: boolean, fireProof: boolean, explosionProof: boolean, collisionProof: boolean, meleeProof: boolean, p6: boolean, p7: boolean, drownProof: boolean
+        public bool BulletProof { get; set; }
+        public bool FireProof { get; set; }
+        public bool ExplosionProof { get; set; }
+        public bool CollisionProof { get; set; }
+        public bool MeleeProof { get; set; }
+        public bool DrownProof { get; set; }
+        public Proofs(Player player)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
+    }
     public class PlayerModel : Player
     {
+        public Proofs Proofs { get; }
         public Vector3 LastPosition { get; set; }
         public bool EntityIsFlying { get; set; }
         public bool EntityLogsCreated { get; set; }
@@ -20,11 +39,11 @@ namespace VnXGlobalSystems.Models
         public uint LastWeapon { get; set; }
         public int Team { get; set; }
         public string DiscordID { get; set; }
-        public string Screenshot { get; set; }
         public PlayerModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
         {
             try
             {
+                Proofs = new Proofs(this);
                 LastPosition = new Vector3();
                 EntityIsFlying = false;
                 NextFlyUpdate = DateTime.Now;
@@ -36,7 +55,12 @@ namespace VnXGlobalSystems.Models
                 WeaponTickCheck = 0;
                 Team = 0;
                 DiscordID = "";
-                Screenshot = "";
+                Proofs.BulletProof = true;
+                Proofs.FireProof = false;
+                Proofs.ExplosionProof = false;
+                Proofs.CollisionProof = false;
+                Proofs.MeleeProof = true;
+                Proofs.DrownProof = false;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

@@ -9,7 +9,7 @@ namespace VnXGlobalSystems.Globals
         public const string VNXGLOBALSYSTEMSVERSION = "V.1.1.5";                //VenoX Global Systems Version.
         public const int UPDATEINTERVAL = 250;                                  //Time in MS - Don't do it under 250... it will cause alot of Weapon-Anticheat sync bugs.
         public const int START_AFTER_CONNECT = 3;                               //Time in Seconds.
-        public const int PLAYER_TICK_INTERVAL = 30;                             //Time in Seconds to check if Clientside Connection exists.
+        public const int PLAYER_TICK_INTERVAL = 15;                             //Time in Seconds to check if Clientside Connection exists.
 
         public static bool AWESOME_SNAKE_MODE = false;                                                   // Beware of using this!! you could not be Awesome enough for that...
         public static int BANLIST_REFRESH_RATE = 30;                                                     //Time in Minutes
