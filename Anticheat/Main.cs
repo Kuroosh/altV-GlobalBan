@@ -103,8 +103,7 @@ namespace VnXGlobalSystems.Anticheat
                     if (playerClass.WeaponTickCheck >= 3)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Core.Debug.OutputDebugString("[INFO] : " + playerClass.CurrentWeapon);
-                        Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Weapon-Anticheat! [" + playerClass.CurrentWeapon + "]");
+                        Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Weapon-Anticheat! [" + playerClass.CurrentWeapon + "][" + (AltV.Net.Enums.WeaponModel)playerClass.CurrentWeapon + "]");
                         Console.ResetColor();
                         string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
                         playerClass.LastWeapon = playerClass.CurrentWeapon;
@@ -124,9 +123,37 @@ namespace VnXGlobalSystems.Anticheat
             {
                 if (playerClass.NextTickUpdate <= DateTime.Now)
                 {
-                    playerClass.NextTickUpdate = DateTime.Now.AddSeconds(10); // Just to fix the spam.
+                    playerClass.NextTickUpdate = DateTime.Now.AddSeconds(7); // Just to fix the spam.
                     playerClass.KickPlayer("Connection to VenoX-Global-Systems lost.");
                     Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Tick-Anticheat! [" + playerClass.NextTickUpdate + "]");
+                }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
+
+        public static void CheckEmits(PlayerModel playerClass)
+        {
+            try
+            {
+                if (playerClass.EventCallCounter >= Constants.PLAYER_KICK_AFTER_EMITS)
+                {
+                    playerClass.Kick("Connection to VenoX-Global-Systems lost.");
+                    //playerClass.KickPlayer("Connection to VenoX-Global-Systems lost.");
+                    Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Emit-Anticheat! [" + playerClass.EventCallCounter + "]");
+                }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
+
+        public static void CheckIfStillConnected(PlayerModel playerClass)
+        {
+            try
+            {
+                if (playerClass.IsKicked && playerClass.KickedDateTime <= DateTime.Now)
+                {
+                    string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
+                    playerClass.Kick(reason);
+                    Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked without Client-Event call !");
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

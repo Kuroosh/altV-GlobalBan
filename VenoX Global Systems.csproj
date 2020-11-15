@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AltV.Net" Version="1.38.4" />
-    <PackageReference Include="AltV.Net.Async" Version="1.38.4 " />
-    <PackageReference Include="MySql.Data" Version="8.0.21" />
+    <PackageReference Include="AltV.Net" Version="1.40.4" />
+    <PackageReference Include="AltV.Net.Async" Version="1.40.1" />
+    <PackageReference Include="MySql.Data" Version="8.0.22" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 

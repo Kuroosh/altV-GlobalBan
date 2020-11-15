@@ -20,6 +20,7 @@ namespace VnXGlobalSystems.Globals
                 player.Proofs.CollisionProof = CollisionProof;
                 player.Proofs.MeleeProof = MeleeProof;
                 player.Proofs.DrownProof = DrownProof;
+                Anticheat.Main.AntiGodmode(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -58,7 +59,12 @@ namespace VnXGlobalSystems.Globals
         }
         public static void KickPlayer(this PlayerModel player, string reason)
         {
-            try { player.Emit("VnXGlobalSystemsClient:Kick", reason); }
+            try
+            {
+                player.Emit("VnXGlobalSystemsClient:Kick", reason);
+                player.IsKicked = true;
+                player.KickedDateTime = DateTime.Now.AddSeconds(10);
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void KickGlobal(this PlayerModel player)
@@ -70,7 +76,7 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                if (player.DiscordID.Length > 0) { return; }
+                if (player.DiscordID.Length > 0) return;
                 player.DiscordID = DiscordID;
                 Functions.CheckPlayerGlobalBans(player);
             }
@@ -78,13 +84,22 @@ namespace VnXGlobalSystems.Globals
         }
         public static void GivePlayerWeapon(this PlayerModel player, uint WeaponHash, int ammo, bool selectWeapon)
         {
-            try { if (player == null) { return; } player.Weapons.Add(WeaponHash); player.GiveWeapon(WeaponHash, ammo, selectWeapon); }
+            try
+            {
+                if (player == null) return;
+                player.Weapons.Add(WeaponHash);
+                player.GiveWeapon(WeaponHash, ammo, selectWeapon);
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void RemovePlayerWeapon(this PlayerModel player, uint WeaponHash)
         {
-            try { if (player == null) { return; } player.RemoveWeapon(WeaponHash); player.Weapons.Remove(WeaponHash); }
+            try
+            {
+                if (player == null) return;
+                player.RemoveWeapon(WeaponHash); player.Weapons.Remove(WeaponHash);
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 

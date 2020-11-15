@@ -32,6 +32,8 @@ namespace VnXGlobalSystems.Models
         public bool EntityLogsCreated { get; set; }
         public DateTime NextTickUpdate { get; set; }
         public DateTime NextFlyUpdate { get; set; }
+        public bool IsKicked { get; set; }
+        public DateTime KickedDateTime { get; set; }
         public int FlyTicks { get; set; }
         public List<uint> Weapons { get; set; }
         public DateTime NextWeaponTickCheck { get; set; }
@@ -39,6 +41,7 @@ namespace VnXGlobalSystems.Models
         public uint LastWeapon { get; set; }
         public int Team { get; set; }
         public string DiscordID { get; set; }
+        public int EventCallCounter { get; set; }
         public PlayerModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
         {
             try
@@ -48,12 +51,14 @@ namespace VnXGlobalSystems.Models
                 EntityIsFlying = false;
                 NextFlyUpdate = DateTime.Now;
                 NextTickUpdate = DateTime.Now.AddSeconds(15);
+                KickedDateTime = DateTime.Now;
                 EntityLogsCreated = false;
                 FlyTicks = 0;
                 Weapons = new List<uint>();
                 LastWeapon = CurrentWeapon;
                 WeaponTickCheck = 0;
                 Team = 0;
+                EventCallCounter = 0;
                 DiscordID = "";
                 Proofs.BulletProof = true;
                 Proofs.FireProof = false;

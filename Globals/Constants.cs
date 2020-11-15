@@ -6,16 +6,21 @@ namespace VnXGlobalSystems.Globals
 {
     public class Constants
     {
-        public const string VNXGLOBALSYSTEMSVERSION = "V.1.1.5";                //VenoX Global Systems Version.
+        public const string VNXGLOBALSYSTEMSVERSION = "V.1.1.6";                //VenoX Global Systems Version.
         public const int UPDATEINTERVAL = 250;                                  //Time in MS - Don't do it under 250... it will cause alot of Weapon-Anticheat sync bugs.
         public const int START_AFTER_CONNECT = 3;                               //Time in Seconds.
-        public const int PLAYER_TICK_INTERVAL = 15;                             //Time in Seconds to check if Clientside Connection exists.
+        public const int PLAYER_TICK_INTERVAL = 45;                             //Time in Seconds to check if Clientside Connection exists.
+        public const int PLAYER_KICK_AFTER_EMITS = 800;                         //Maximum amounts of Serverside Emits ( this would prevent player from spamming the server with emits )
 
         public static bool AWESOME_SNAKE_MODE = false;                                                   // Beware of using this!! you could not be Awesome enough for that...
         public static int BANLIST_REFRESH_RATE = 30;                                                     //Time in Minutes
         public static int INGAME_BAN_REFRESH_RATE = 1;                                                   //Time in Minutes
+        public static int INGAME_EVENT_CALL_RESET_RATE = 1;                                              //Time in Minutes
+        public static int INGAME_NATIVE_CALL_RATE = 1;                                                   //Time in Minutes
         public static DateTime NEXT_BANLIST_REFRESH = DateTime.Now.AddMinutes(BANLIST_REFRESH_RATE);     //Last Time Refreshed/Renewed the Banlist.
         public static DateTime NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(INGAME_BAN_REFRESH_RATE);    //Last Time Refreshed/Renewed the Banlist.
+        public static DateTime NEXT_INGAME_NATIVE_CALL = DateTime.Now.AddMinutes(INGAME_NATIVE_CALL_RATE);    //Last Time Recalled Natives.
+        public static DateTime NEXT_INGAME_EVENT_CALL_RESET = DateTime.Now.AddMinutes(INGAME_EVENT_CALL_RESET_RATE);    //Last Time called ServerEvents.
 
         // Cheat Check
         public const int TELEPORT_KICK_FOOT = 12;                            //Distance in Meter ( Kick after ...meter+ on Foot).

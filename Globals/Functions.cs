@@ -55,15 +55,24 @@ namespace VnXGlobalSystems.Globals
                 }
                 foreach (PlayerModel player in Main.ConnectedPlayers.ToList())
                 {
-                    if (Constants.NEXT_INGAME_BAN_CHECK <= DateTime.Now) { CheckPlayerGlobalBans(player); Constants.NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(Constants.INGAME_BAN_REFRESH_RATE); }
+                    if (player is null || !player.Exists) continue;
+                    if (Constants.NEXT_INGAME_BAN_CHECK <= DateTime.Now) CheckPlayerGlobalBans(player);
                     if (!Functions.GeneralModel.AnticheatSystemActive) return;
                     Anticheat.Main.CheckTick(player);
                     Anticheat.Main.AntiFly(player);
-                    Anticheat.Main.AntiNoRagdoll(player);
-                    Anticheat.Main.AntiGodmode(player);
                     Anticheat.Main.CheckTeleport(player);
                     Anticheat.Main.CheckWeapons(player);
+                    Anticheat.Main.CheckEmits(player);
+                    if (Constants.NEXT_INGAME_NATIVE_CALL <= DateTime.Now)
+                    {
+                        Anticheat.Main.AntiNoRagdoll(player);
+                        Anticheat.Main.AntiGodmode(player);
+                    }
+                    if (Constants.NEXT_INGAME_EVENT_CALL_RESET <= DateTime.Now) player.EventCallCounter = 0;
                 }
+                if (Constants.NEXT_INGAME_BAN_CHECK <= DateTime.Now) Constants.NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(Constants.INGAME_BAN_REFRESH_RATE);
+                if (Constants.NEXT_INGAME_NATIVE_CALL <= DateTime.Now) Constants.NEXT_INGAME_NATIVE_CALL = DateTime.Now.AddMinutes(Constants.INGAME_NATIVE_CALL_RATE);
+                if (Constants.NEXT_INGAME_EVENT_CALL_RESET <= DateTime.Now) Constants.NEXT_INGAME_EVENT_CALL_RESET = DateTime.Now.AddMinutes(Constants.INGAME_EVENT_CALL_RESET_RATE);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

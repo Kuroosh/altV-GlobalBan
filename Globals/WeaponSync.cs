@@ -12,7 +12,9 @@ namespace VnXGlobalSystems.Globals
             try
             {
                 float _num = 1;
-                if (Functions.WeaponModel.HeadDamage) { if (hitbone == BodyPart.Head) { _num = Functions.WeaponModel.HeadDamageMultiplier; } }
+                if (Functions.WeaponModel.HeadDamage)
+                    if (hitbone == BodyPart.Head) _num = Functions.WeaponModel.HeadDamageMultiplier;
+
                 return _num;
             }
             catch { return 1; }
@@ -28,8 +30,10 @@ namespace VnXGlobalSystems.Globals
             {
                 if (target == player) return;
                 if (!Functions.WeaponModel.TeamDamage && target.Team == player.Team) return;
-                if (target.Health <= 0 || target.IsDead || player.Health <= 0 || player.IsDead) { return; }
-                if (Functions.AnticheatModel.CheckWeapons) { if (!player.Weapons.Contains(weapon) && weapon != (uint)AltV.Net.Enums.WeaponModel.Fist && weapon != 0) { return; } }
+                if (target.Health <= 0 || target.IsDead || player.Health <= 0 || player.IsDead) return;
+                if (Functions.AnticheatModel.CheckWeapons)
+                    if (!player.Weapons.Contains(weapon) && weapon != (uint)AltV.Net.Enums.WeaponModel.Fist && weapon != 0) return;
+
                 if (Functions.WeaponModel.Headshot && bodypart == BodyPart.Head)
                 {
                     target.Health = 0;
@@ -58,12 +62,9 @@ namespace VnXGlobalSystems.Globals
                 {
                     int Adiff = target.Armor - Convert.ToInt32(Damage);
                     if (Adiff <= 0) { target.Health += (ushort)Adiff; target.Armor = 0; }
-                    else { target.Armor -= (ushort)Damage; }
+                    else target.Armor -= (ushort)Damage;
                 }
-                else
-                {
-                    target.Health -= (ushort)Damage;
-                }
+                else target.Health -= (ushort)Damage;
                 Alt.Emit("GlobalSystems:OnPlayerSyncDamage", target, player, Damage);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -75,7 +76,7 @@ namespace VnXGlobalSystems.Globals
             {
                 AltV.Net.Enums.WeaponModel ConvertedWeapon = (AltV.Net.Enums.WeaponModel)weapon;
                 uint Damage = (uint)GetWeaponDamage(ConvertedWeapon);
-                if (vehicle.GlobalSystemsHealth <= 0) { return; }
+                if (vehicle.GlobalSystemsHealth <= 0) return;
                 vehicle.GlobalSystemsHealth -= Damage;
                 Alt.Emit("GlobalSystems:OnVehicleSyncDamage", player, vehicle, Damage);
             }

@@ -13,7 +13,7 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                if (Functions.GeneralModel.VPNSystemActive) { Core.Main.CheckIP(player); }
+                if (Functions.GeneralModel.VPNSystemActive) Core.Main.CheckIP(player);
                 player.Emit("VnXGlobalSystemsClient:GetDiscordID");
                 Functions.CheckPlayerGlobalBans(player);
                 Main.ConnectedPlayers.Add(player);
@@ -39,18 +39,14 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                //Core.Debug.OutputDebugString(" Entity : " + entity);
+                if (!Functions.AnticheatModel.AntiGodmode) return;
+                if (entity is null || !entity.Exists) return;
                 if (entity is PlayerModel target)
                 {
-                    if (target == null) { return; }
-                    if (!Functions.AnticheatModel.AntiGodmode) { return; }
                     WeaponSync.WeaponDamage(player, target, weapon, dmg, offset, bodypart);
-                    Alt.Emit("GlobalSystems:OnEntityHit", player, target);
                 }
                 else if (entity is VehicleModel vehicle)
-                {
                     WeaponSync.OnVehicleDamage(player, vehicle, weapon);
-                }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -61,6 +57,11 @@ namespace VnXGlobalSystems.Globals
             try { player.RemoveAllPlayerWeapons(); }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-
+        [ScriptEvent(ScriptEventType.PlayerEvent)]
+        public static void OnServerEventReceive(PlayerModel player, string EventName, params object[] args)
+        {
+            try { player.EventCallCounter++; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
     }
 }
