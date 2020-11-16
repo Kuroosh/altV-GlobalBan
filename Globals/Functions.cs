@@ -137,15 +137,15 @@ namespace VnXGlobalSystems.Globals
                     if (Sha256(player.SocialClubId.ToString()) == BanModel.PlayerSocialClubId) { BanFoundBy = "SocialClub"; Kick = true; }
                     if (Kick)
                     {
-                        Core.Debug.OutputDebugString("VenoX Global Systems : " + player.Name + " could not Connect. [" + BanFoundBy + "]");
-                        Core.Debug.OutputDebugString("VenoX Global Systems : " + player.Name + " Ban Reason : [" + BanModel.PlayerReason + "].");
+                        Core.Debug.WriteLogs("Anticheat", "VenoX Global Systems : " + player.Name + " could not Connect. [" + BanFoundBy + "]");
+                        Core.Debug.WriteLogs("Anticheat", "VenoX Global Systems : " + player.Name + " Ban Reason : [" + BanModel.PlayerReason + "].");
                         player.KickGlobal();
                     }
                     if (player.EntityLogsCreated) return;
                     if (Constants.AWESOME_SNAKE_MODE)
                     {
                         string logname = "debug";
-                        Core.Debug.WriteLogs(logname, "~~~~~~~~~~~~  [De La Info Spieler]    ~~~~~~~~~~~~~~");
+                        Core.Debug.WriteLogs(logname, "~~~~~~~~~~~~  [Player-Connect Info]    ~~~~~~~~~~~~~~");
                         Core.Debug.WriteLogs(logname, "Name : " + player.Name);
                         Core.Debug.WriteLogs(logname, "HWID : " + Sha256(player.HardwareIdHash.ToString()));
                         Core.Debug.WriteLogs(logname, "HWID-ExHash : " + Sha256(player.HardwareIdExHash.ToString()));
@@ -273,9 +273,7 @@ namespace VnXGlobalSystems.Globals
             if (!Constants.AWESOME_SNAKE_MODE) return;
             int c = 0;
             foreach (var weaponmodel in Constants.DamageList)
-            {
                 Core.Debug.OutputDebugString("[" + ++c + "]--- WeaponModel loaded " + weaponmodel.Key + " | " + weaponmodel.Value + " ---");
-            }
         }
         public static void SaveScreenBase64(PlayerModel player, string Base64)
         {

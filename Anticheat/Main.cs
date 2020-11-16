@@ -45,7 +45,8 @@ namespace VnXGlobalSystems.Anticheat
                     if (playerClass.FlyTicks > 5)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Fly-Anticheat!");
+                        //Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Fly-Anticheat!");
+                        Core.Debug.WriteLogs("Anticheat", "[INFO] : " + playerClass.Name + " got kicked! Reason : Fly-Anticheat!");
                         Console.ResetColor();
                         string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
                         playerClass.KickPlayer(reason);
@@ -64,9 +65,9 @@ namespace VnXGlobalSystems.Anticheat
                 {
                     if (playerClass.Position.Distance(playerClass.LastPosition) > GetMaxTeleportVehicleDistance(playerClass))
                     {
-                        Core.Debug.OutputDebugString(playerClass.Name + " is in a Vehicle. Distance : " + playerClass.Position.Distance(playerClass.LastPosition));
+                        Core.Debug.WriteLogs("Anticheat", playerClass.Name + " is in a Vehicle. Distance : " + playerClass.Position.Distance(playerClass.LastPosition));
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Vehicle-Teleport-Anticheat!");
+                        Core.Debug.WriteLogs("Anticheat", "[INFO] : " + playerClass.Name + " got kicked! Reason : Vehicle-Teleport-Anticheat!");
                         Console.ResetColor();
                         string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
                         playerClass.KickPlayer(reason);
@@ -79,8 +80,8 @@ namespace VnXGlobalSystems.Anticheat
                         if (playerClass.Position.Z < 150)
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Core.Debug.OutputDebugString(playerClass.Name + " is on foot. Distance : " + playerClass.Position.Distance(playerClass.LastPosition));
-                            Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Teleport-Anticheat!");
+                            Core.Debug.WriteLogs("Anticheat", playerClass.Name + " is on foot. Distance : " + playerClass.Position.Distance(playerClass.LastPosition));
+                            Core.Debug.WriteLogs("Anticheat", "[INFO] : " + playerClass.Name + " got kicked! Reason : Teleport-Anticheat!");
                             Console.ResetColor();
                             string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
                             playerClass.KickPlayer(reason);
@@ -103,7 +104,7 @@ namespace VnXGlobalSystems.Anticheat
                     if (playerClass.WeaponTickCheck >= 3)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Weapon-Anticheat! [" + playerClass.CurrentWeapon + "][" + (AltV.Net.Enums.WeaponModel)playerClass.CurrentWeapon + "]");
+                        Core.Debug.WriteLogs("Anticheat", "[INFO] : " + playerClass.Name + " got kicked! Reason : Weapon-Anticheat! [" + playerClass.CurrentWeapon + "][" + (AltV.Net.Enums.WeaponModel)playerClass.CurrentWeapon + "]");
                         Console.ResetColor();
                         string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
                         playerClass.LastWeapon = playerClass.CurrentWeapon;
@@ -125,7 +126,7 @@ namespace VnXGlobalSystems.Anticheat
                 {
                     playerClass.NextTickUpdate = DateTime.Now.AddSeconds(7); // Just to fix the spam.
                     playerClass.KickPlayer("Connection to VenoX-Global-Systems lost.");
-                    Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Tick-Anticheat! [" + playerClass.NextTickUpdate + "]");
+                    Core.Debug.WriteLogs("Anticheat", "[INFO] : " + playerClass.Name + " got kicked! Reason : Tick-Anticheat! [" + playerClass.NextTickUpdate + "]");
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -139,7 +140,7 @@ namespace VnXGlobalSystems.Anticheat
                 {
                     playerClass.Kick("Connection to VenoX-Global-Systems lost.");
                     //playerClass.KickPlayer("Connection to VenoX-Global-Systems lost.");
-                    Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked! Reason : Emit-Anticheat! [" + playerClass.EventCallCounter + "]");
+                    Core.Debug.WriteLogs("Anticheat", "[INFO] : " + playerClass.Name + " got kicked! Reason : Emit-Anticheat! [" + playerClass.EventCallCounter + "]");
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -153,7 +154,7 @@ namespace VnXGlobalSystems.Anticheat
                 {
                     string reason = "[VenoX Global Systems " + Constants.VNXGLOBALSYSTEMSVERSION + "] : Kicked by Anticheat";
                     playerClass.Kick(reason);
-                    Core.Debug.OutputDebugString("[INFO] : " + playerClass.Name + " got kicked without Client-Event call !");
+                    Core.Debug.WriteLogs("Anticheat", "[INFO] : " + playerClass.Name + " got kicked without Client-Event call!");
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

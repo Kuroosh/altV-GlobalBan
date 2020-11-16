@@ -27,7 +27,7 @@ namespace VnXGlobalSystems.Core
             Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.StackTrace);
             Console.ResetColor();
         }
-        public static void OutputLog(string message, ConsoleColor color)
+        public static void OutputLog(string message, ConsoleColor color = ConsoleColor.Yellow)
         {
 
             var pieces = Regex.Split(message, @"(\[[^\]]*\])");
@@ -52,6 +52,7 @@ namespace VnXGlobalSystems.Core
         {
             try
             {
+                if (logname == "Anticheat") OutputLog(strLog, ConsoleColor.Yellow);
                 StreamWriter log;
                 FileStream fileStream = null;
                 DirectoryInfo logDirInfo = null;

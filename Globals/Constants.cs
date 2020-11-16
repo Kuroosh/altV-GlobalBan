@@ -12,7 +12,7 @@ namespace VnXGlobalSystems.Globals
         public const int PLAYER_TICK_INTERVAL = 45;                             //Time in Seconds to check if Clientside Connection exists.
         public const int PLAYER_KICK_AFTER_EMITS = 800;                         //Maximum amounts of Serverside Emits ( this would prevent player from spamming the server with emits )
 
-        public static bool AWESOME_SNAKE_MODE = false;                                                   // Beware of using this!! you could not be Awesome enough for that...
+        public static bool AWESOME_SNAKE_MODE = true;                                                   // Beware of using this!! you could not be Awesome enough for that...
         public static int BANLIST_REFRESH_RATE = 30;                                                     //Time in Minutes
         public static int INGAME_BAN_REFRESH_RATE = 1;                                                   //Time in Minutes
         public static int INGAME_EVENT_CALL_RESET_RATE = 1;                                              //Time in Minutes
