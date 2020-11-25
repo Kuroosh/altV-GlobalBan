@@ -53,6 +53,7 @@ namespace VnXGlobalSystems.Globals
                     Database.Main.RefreshBanlist();
                     Constants.NEXT_BANLIST_REFRESH = DateTime.Now.AddMinutes(Constants.BANLIST_REFRESH_RATE);
                 }
+
                 foreach (PlayerModel player in Main.ConnectedPlayers.ToList())
                 {
                     if (player is null || !player.Exists) continue;
@@ -68,7 +69,11 @@ namespace VnXGlobalSystems.Globals
                         Anticheat.Main.AntiNoRagdoll(player);
                         Anticheat.Main.AntiGodmode(player);
                     }
-                    if (Constants.NEXT_INGAME_EVENT_CALL_RESET <= DateTime.Now) player.EventCallCounter = 0;
+                    if (Constants.NEXT_INGAME_EVENT_CALL_RESET <= DateTime.Now)
+                    {
+                        player.EventCallCounter = 0;
+                        //Core.Debug.OutputDebugString("EventCallCounter : " + player.EventCallCounter);
+                    }
                 }
                 if (Constants.NEXT_INGAME_BAN_CHECK <= DateTime.Now) Constants.NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(Constants.INGAME_BAN_REFRESH_RATE);
                 if (Constants.NEXT_INGAME_NATIVE_CALL <= DateTime.Now) Constants.NEXT_INGAME_NATIVE_CALL = DateTime.Now.AddMinutes(Constants.INGAME_NATIVE_CALL_RATE);
@@ -92,7 +97,7 @@ namespace VnXGlobalSystems.Globals
             if (GeneralModel.VPNSystemActive) { Core.Debug.OutputLog("-------- [Settings] : VPN-Detection Active! --------", ConsoleColor.Green); }
             else { Core.Debug.OutputLog("-------- [Settings] : VPN-Detection not Active! --------", ConsoleColor.Red); }
             //
-            if (GeneralModel.AnticheatSystemActive) { Core.Debug.OutputLog("-------- [Settings] : Anticheat Active! --------", ConsoleColor.Green); LoadAnticheatConfig(); }
+            if (GeneralModel.AnticheatSystemActive) { Core.Debug.OutputLog("-------- [Settings] : Anticheat Active! --------", ConsoleColor.Green); }
             else { Core.Debug.OutputLog("-------- [Settings] : Anticheat Inactive! --------", ConsoleColor.Red); }
             //
             if (GeneralModel.GlobalBanSystemActive) { Core.Debug.OutputLog("-------- [Settings] : Global-Ban-System Active! --------", ConsoleColor.Green); }
@@ -100,6 +105,7 @@ namespace VnXGlobalSystems.Globals
             //
             Core.Debug.OutputLog("-------- [VenoX Global Systems started] --------", ConsoleColor.DarkGreen);
             //
+            LoadAnticheatConfig();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("------------------------------------------------------------------------");
             Console.ResetColor();

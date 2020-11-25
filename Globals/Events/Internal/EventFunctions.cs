@@ -9,7 +9,14 @@ namespace VnXGlobalSystems.Globals
     public static class EventFunctions
     {
         /* Event Functions */
-
+        public static void SetPlayerGodmode(this PlayerModel player, bool EntityGodmode)
+        {
+            try
+            {
+                player.EntityGodmode = EntityGodmode;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
         public static void SetPlayerProofs(this PlayerModel player, bool BulletProof, bool FireProof, bool ExplosionProof, bool CollisionProof, bool MeleeProof, bool DrownProof)
         {
             try

@@ -60,7 +60,11 @@ namespace VnXGlobalSystems.Globals
         [ScriptEvent(ScriptEventType.PlayerEvent)]
         public static void OnServerEventReceive(PlayerModel player, string EventName, params object[] args)
         {
-            try { player.EventCallCounter++; }
+            try
+            {
+                player.EventCallCounter++;
+                if (player.EventCallCounter >= 780) Core.Debug.WriteLogs("Events", " Name : " + player.Name + " | SCID : " + player.SocialClubId + " called Event[" + player.EventCallCounter + "] : " + EventName + " | args : " + string.Join(", ", args));
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }

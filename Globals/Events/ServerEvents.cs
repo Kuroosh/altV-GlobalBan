@@ -24,6 +24,9 @@ namespace VnXGlobalSystems.Globals
         [ServerEvent("GlobalSystems:PlayerTeam")]
         public static void Playerteam(PlayerModel player, int TeamId) => player.SetPlayerTeam(TeamId);
 
+        [ServerEvent("GlobalSystems:PlayerGodmode")]
+        public static void PlayerGodmode(PlayerModel player, bool Godmode) => player.SetPlayerGodmode(Godmode);
+
         [ServerEvent("GlobalSystems:PlayerProofs")]
         public static void Playerteam(PlayerModel player, bool BulletProof, bool FireProof, bool ExplosionProof, bool CollisionProof, bool MeleeProof, bool DrownProof) => player.SetPlayerProofs(BulletProof, FireProof, ExplosionProof, CollisionProof, MeleeProof, DrownProof);
     }

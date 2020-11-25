@@ -29,6 +29,7 @@ namespace VnXGlobalSystems.Models
         public Proofs Proofs { get; }
         public Vector3 LastPosition { get; set; }
         public bool EntityIsFlying { get; set; }
+        public bool EntityGodmode { get; set; }
         public bool EntityLogsCreated { get; set; }
         public DateTime NextTickUpdate { get; set; }
         public DateTime NextFlyUpdate { get; set; }
