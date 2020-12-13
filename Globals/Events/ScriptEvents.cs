@@ -54,7 +54,10 @@ namespace VnXGlobalSystems.Globals
         [ScriptEvent(ScriptEventType.PlayerDead)]
         public static void OnPlayerDeath(PlayerModel player, IEntity entity, uint reason)
         {
-            try { player.RemoveAllPlayerWeapons(); }
+            try
+            {
+                //player.RemoveAllPlayerWeapons(); 
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         [ScriptEvent(ScriptEventType.PlayerEvent)]

@@ -29,5 +29,11 @@ namespace VnXGlobalSystems.Globals
 
         [ServerEvent("GlobalSystems:PlayerProofs")]
         public static void Playerteam(PlayerModel player, bool BulletProof, bool FireProof, bool ExplosionProof, bool CollisionProof, bool MeleeProof, bool DrownProof) => player.SetPlayerProofs(BulletProof, FireProof, ExplosionProof, CollisionProof, MeleeProof, DrownProof);
+
+        [ServerEvent("GlobalSystems:SetClothes")]
+        public static void PlayerClothes(PlayerModel player, int slot, int drawable, int texture) => player.SetPlayerClothes(slot, drawable, texture);
+
+        [ServerEvent("GlobalSystems:SetProps")]
+        public static void PlayerProps(PlayerModel player, int slot, int drawable, int texture) => player.SetPlayerProps(slot, drawable, texture);
     }
 }

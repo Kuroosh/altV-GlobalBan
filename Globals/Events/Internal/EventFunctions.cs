@@ -9,10 +9,30 @@ namespace VnXGlobalSystems.Globals
     public static class EventFunctions
     {
         /* Event Functions */
+
+        public static void SetPlayerClothes(this PlayerModel player, int slot, int drawable, int texture)
+        {
+            try
+            {
+                if (player is null || !player.Exists) return;
+                player.Emit("VnXGlobalSystemsClient:SetClothes", slot, drawable, texture);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
+        public static void SetPlayerProps(this PlayerModel player, int slot, int drawable, int texture)
+        {
+            try
+            {
+                if (player is null || !player.Exists) return;
+                player.Emit("VnXGlobalSystemsClient:SetProps", slot, drawable, texture);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
         public static void SetPlayerGodmode(this PlayerModel player, bool EntityGodmode)
         {
             try
             {
+                if (player is null || !player.Exists) return;
                 player.EntityGodmode = EntityGodmode;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -21,6 +41,7 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
+                if (player is null || !player.Exists) return;
                 player.Proofs.BulletProof = BulletProof;
                 player.Proofs.FireProof = FireProof;
                 player.Proofs.ExplosionProof = ExplosionProof;
@@ -33,13 +54,18 @@ namespace VnXGlobalSystems.Globals
         }
         public static void SetPlayerTeam(this PlayerModel player, int TeamId)
         {
-            try { player.Team = TeamId; }
+            try
+            {
+                if (player is null || !player.Exists) return;
+                player.Team = TeamId;
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SetPrivacyPolicy(this PlayerModel player, int privacy)
         {
             try
             {
+                if (player is null || !player.Exists) return;
                 switch (privacy)
                 {
                     case 0:
@@ -83,8 +109,10 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
+                if (player is null || !player.Exists) return;
                 if (player.DiscordID.Length > 0) return;
                 player.DiscordID = DiscordID;
+                player.EntityLogsCreated = false;
                 Functions.CheckPlayerGlobalBans(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -93,7 +121,7 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                if (player == null) return;
+                if (player is null || !player.Exists) return;
                 player.Weapons.Add(WeaponHash);
                 player.GiveWeapon(WeaponHash, ammo, selectWeapon);
             }
@@ -104,27 +132,38 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                if (player == null) return;
-                player.RemoveWeapon(WeaponHash); player.Weapons.Remove(WeaponHash);
+                if (player is null || !player.Exists) return;
+                player.RemoveWeapon(WeaponHash);
+                player.Weapons.Remove(WeaponHash);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void RemoveAllPlayerWeapons(this PlayerModel player)
         {
-            try { if (player == null) { return; } player.RemoveAllWeapons(); player.Weapons.Clear(); }
+            try
+            {
+                if (player is null || !player.Exists) return;
+                player.RemoveAllWeapons();
+                player.Weapons.Clear();
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void Position(this PlayerModel player, Vector3 position)
         {
-            try { if (player == null) { return; } player.LastPosition = position; player.Position = position; }
+            try
+            {
+                if (player is null || !player.Exists) return;
+                player.LastPosition = position;
+                player.Position = position;
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SetNextTick(this PlayerModel player)
         {
             try
             {
-                if (player == null) return;
+                if (player is null || !player.Exists) return;
                 player.NextTickUpdate = DateTime.Now.AddSeconds(Constants.PLAYER_TICK_INTERVAL);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -132,7 +171,11 @@ namespace VnXGlobalSystems.Globals
 
         public static void OnVehicleDamage(this PlayerModel player, VehicleModel vehicle)
         {
-            try { if (player == null) { return; } WeaponSync.OnVehicleDamage(player, vehicle, player.CurrentWeapon); }
+            try
+            {
+                if (player is null || !player.Exists) return;
+                WeaponSync.OnVehicleDamage(player, vehicle, player.CurrentWeapon);
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }

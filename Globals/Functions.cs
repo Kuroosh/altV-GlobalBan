@@ -24,21 +24,34 @@ namespace VnXGlobalSystems.Globals
                 string jsonString = File.ReadAllText(Alt.Server.Resource.Path + "/settings/anticheat.json");
                 AnticheatModel = JsonSerializer.Deserialize<AnticheatModel>(jsonString);
                 Console.ResetColor();
+
                 //Fly Notify
-                if (AnticheatModel.AntiFly) Core.Debug.OutputLog("-------- Global Systems AntiFly = [ON] --------", ConsoleColor.Green);
-                else Core.Debug.OutputLog("-------- Global Systems AntiFly = [OFF] --------", ConsoleColor.Red);
+                if (AnticheatModel.AntiFly)
+                    Core.Debug.OutputLog("-------- Global Systems AntiFly = [ON] --------", ConsoleColor.Green);
+                else
+                    Core.Debug.OutputLog("-------- Global Systems AntiFly = [OFF] --------", ConsoleColor.Red);
                 //Ragdoll Notify
-                if (AnticheatModel.AntiNoRagdoll) Core.Debug.OutputLog("-------- Global Systems AntiNoRagdoll = [ON] --------", ConsoleColor.Green);
-                else Core.Debug.OutputLog("-------- Global Systems AntiNoRagdoll = [OFF] --------", ConsoleColor.Red);
+                if (AnticheatModel.AntiNoRagdoll)
+                    Core.Debug.OutputLog("-------- Global Systems AntiNoRagdoll = [ON] --------", ConsoleColor.Green);
+                else
+                    Core.Debug.OutputLog("-------- Global Systems AntiNoRagdoll = [OFF] --------", ConsoleColor.Red);
                 //Godmode Notify
-                if (AnticheatModel.AntiGodmode) { Core.Debug.OutputLog("-------- Global Systems AntiGodmode = [ON] --------", ConsoleColor.Green); LoadWeaponDamageConfig(); }
-                else Core.Debug.OutputLog("-------- Global Systems AntiGodmode = [OFF] --------", ConsoleColor.Red);
+                if (AnticheatModel.AntiGodmode)
+                {
+                    Core.Debug.OutputLog("-------- Global Systems AntiGodmode = [ON] --------", ConsoleColor.Green); LoadWeaponDamageConfig();
+                }
+                else
+                    Core.Debug.OutputLog("-------- Global Systems AntiGodmode = [OFF] --------", ConsoleColor.Red);
                 //CheckTeleport Notify
-                if (AnticheatModel.CheckTeleport) Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [ON] --------", ConsoleColor.Green);
-                else Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [OFF] --------", ConsoleColor.Red);
+                if (AnticheatModel.CheckTeleport)
+                    Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [ON] --------", ConsoleColor.Green);
+                else
+                    Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [OFF] --------", ConsoleColor.Red);
                 //CheckWeapons Notify
-                if (AnticheatModel.CheckWeapons) Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [ON] --------", ConsoleColor.Green);
-                else Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [OFF] --------", ConsoleColor.Red);
+                if (AnticheatModel.CheckWeapons)
+                    Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [ON] --------", ConsoleColor.Green);
+                else
+                    Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [OFF] --------", ConsoleColor.Red);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -90,21 +103,27 @@ namespace VnXGlobalSystems.Globals
             Console.WriteLine("-------- " + Constants.VNXGLOBALSYSTEMSVERSION + " --------");
             Console.WriteLine("-------- Loading Config File.... --------");
             Console.WriteLine("---------------------------------------------");
-            //
+
             GeneralModel = JsonSerializer.Deserialize<GeneralModel>(jsonString);
-            //
+
             Console.ResetColor();
-            if (GeneralModel.VPNSystemActive) { Core.Debug.OutputLog("-------- [Settings] : VPN-Detection Active! --------", ConsoleColor.Green); }
-            else { Core.Debug.OutputLog("-------- [Settings] : VPN-Detection not Active! --------", ConsoleColor.Red); }
-            //
-            if (GeneralModel.AnticheatSystemActive) { Core.Debug.OutputLog("-------- [Settings] : Anticheat Active! --------", ConsoleColor.Green); }
-            else { Core.Debug.OutputLog("-------- [Settings] : Anticheat Inactive! --------", ConsoleColor.Red); }
-            //
-            if (GeneralModel.GlobalBanSystemActive) { Core.Debug.OutputLog("-------- [Settings] : Global-Ban-System Active! --------", ConsoleColor.Green); }
-            else { Core.Debug.OutputLog("-------- [Settings] : Global-Ban-System not Active! --------", ConsoleColor.Red); }
-            //
+            if (GeneralModel.VPNSystemActive)
+                Core.Debug.OutputLog("-------- [Settings] : VPN-Detection Active! --------", ConsoleColor.Green);
+            else
+                Core.Debug.OutputLog("-------- [Settings] : VPN-Detection not Active! --------", ConsoleColor.Red);
+
+            if (GeneralModel.AnticheatSystemActive)
+                Core.Debug.OutputLog("-------- [Settings] : Anticheat Active! --------", ConsoleColor.Green);
+            else
+                Core.Debug.OutputLog("-------- [Settings] : Anticheat Inactive! --------", ConsoleColor.Red);
+
+            if (GeneralModel.GlobalBanSystemActive)
+                Core.Debug.OutputLog("-------- [Settings] : Global-Ban-System Active! --------", ConsoleColor.Green);
+            else
+                Core.Debug.OutputLog("-------- [Settings] : Global-Ban-System not Active! --------", ConsoleColor.Red);
+
             Core.Debug.OutputLog("-------- [VenoX Global Systems started] --------", ConsoleColor.DarkGreen);
-            //
+
             LoadAnticheatConfig();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("------------------------------------------------------------------------");
@@ -156,10 +175,15 @@ namespace VnXGlobalSystems.Globals
                         Core.Debug.WriteLogs(logname, "HWID : " + Sha256(player.HardwareIdHash.ToString()));
                         Core.Debug.WriteLogs(logname, "HWID-ExHash : " + Sha256(player.HardwareIdExHash.ToString()));
                         Core.Debug.WriteLogs(logname, "SocialID : " + Sha256(player.SocialClubId.ToString()));
-                        Core.Debug.WriteLogs(logname, "DiscordID : " + Sha256(player.DiscordID));
-                        Core.Debug.WriteLogs(logname, "DiscordID2 : " + player.DiscordID);
+                        if (player.DiscordID.Length >= 2)
+                        {
+                            Core.Debug.WriteLogs(logname, "DiscordID : " + Sha256(player.DiscordID));
+                            Core.Debug.WriteLogs(logname, "DiscordID2 : " + player.DiscordID);
+                        }
+                        else Core.Debug.WriteLogs(logname, "DiscordID : NOT FOUND!");
+
                         Core.Debug.WriteLogs(logname, "IP-Adress : " + Sha256(player.Ip.ToString()));
-                        Core.Debug.WriteLogs(logname, "~~~~~~~~~~~~  [De La Info Spieler]    ~~~~~~~~~~~~~~");
+                        Core.Debug.WriteLogs(logname, "~~~~~~~~~~~~  [Player-Connect Info]    ~~~~~~~~~~~~~~");
                         player.EntityLogsCreated = true;
                     }
                 }
