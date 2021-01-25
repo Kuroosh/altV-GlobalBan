@@ -47,11 +47,18 @@ namespace VnXGlobalSystems.Globals
                     Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [ON] --------", ConsoleColor.Green);
                 else
                     Core.Debug.OutputLog("-------- Global Systems CheckTeleport = [OFF] --------", ConsoleColor.Red);
+
                 //CheckWeapons Notify
                 if (AnticheatModel.CheckWeapons)
                     Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [ON] --------", ConsoleColor.Green);
                 else
                     Core.Debug.OutputLog("-------- Global Systems CheckWeapons = [OFF] --------", ConsoleColor.Red);
+
+                //CheckClothes Notify
+                if (AnticheatModel.CheckClothes)
+                    Core.Debug.OutputLog("-------- Global Systems CheckClothes = [ON] --------", ConsoleColor.Green);
+                else
+                    Core.Debug.OutputLog("-------- Global Systems CheckClothes = [OFF] --------", ConsoleColor.Red);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -82,11 +89,7 @@ namespace VnXGlobalSystems.Globals
                         Anticheat.Main.AntiNoRagdoll(player);
                         Anticheat.Main.AntiGodmode(player);
                     }
-                    if (Constants.NEXT_INGAME_EVENT_CALL_RESET <= DateTime.Now)
-                    {
-                        player.EventCallCounter = 0;
-                        //Core.Debug.OutputDebugString("EventCallCounter : " + player.EventCallCounter);
-                    }
+                    if (Constants.NEXT_INGAME_EVENT_CALL_RESET <= DateTime.Now) player.EventCallCounter = 0;
                 }
                 if (Constants.NEXT_INGAME_BAN_CHECK <= DateTime.Now) Constants.NEXT_INGAME_BAN_CHECK = DateTime.Now.AddMinutes(Constants.INGAME_BAN_REFRESH_RATE);
                 if (Constants.NEXT_INGAME_NATIVE_CALL <= DateTime.Now) Constants.NEXT_INGAME_NATIVE_CALL = DateTime.Now.AddMinutes(Constants.INGAME_NATIVE_CALL_RATE);

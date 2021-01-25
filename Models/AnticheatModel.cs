@@ -7,5 +7,6 @@
         public bool AntiGodmode { get; set; }
         public bool CheckTeleport { get; set; }
         public bool CheckWeapons { get; set; }
+        public bool CheckClothes { get; set; }
     }
 }

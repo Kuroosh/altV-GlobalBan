@@ -9,7 +9,6 @@ namespace VnXGlobalSystems.Globals
     public static class EventFunctions
     {
         /* Event Functions */
-
         public static void SetPlayerClothes(this PlayerModel player, int slot, int drawable, int texture)
         {
             try
@@ -94,15 +93,20 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                player.Emit("VnXGlobalSystemsClient:Kick", reason);
                 player.IsKicked = true;
                 player.KickedDateTime = DateTime.Now.AddSeconds(10);
+                player.Emit("VnXGlobalSystemsClient:Kick", reason);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void KickGlobal(this PlayerModel player)
         {
-            try { player.Emit("VnXGlobalSystemsClient:KickGlobal"); }
+            try
+            {
+                player.IsKicked = true;
+                player.KickedDateTime = DateTime.Now.AddSeconds(10);
+                player.Emit("VnXGlobalSystemsClient:KickGlobal");
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void UpdateDiscordInfo(this PlayerModel player, string DiscordID)
