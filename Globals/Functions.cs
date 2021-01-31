@@ -313,7 +313,7 @@ namespace VnXGlobalSystems.Globals
             try
             {
                 //string logFilePath = Alt.Server.Resource.Path + "/settings/debug/" + player.HardwareIdHash + "-" + DateTime.Now.ToString().Replace(" ", "") + ".png";
-                string logFilePath = Alt.Server.Resource.Path + "/settings/debug/" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "-" + player.HardwareIdHash + ".png";
+                string logFilePath = Alt.Server.Resource.Path + "/settings/debug/" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + " | " + player.HardwareIdHash + ".png";
                 byte[] bytes = Convert.FromBase64String(Base64);
                 using FileStream imageFile = new FileStream(logFilePath.Replace(@"\", @"\\"), FileMode.Create);
                 imageFile.Write(bytes, 0, bytes.Length);

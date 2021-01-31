@@ -1,7 +1,8 @@
 {
 	"AntiFly": true,
-	"AntiNoRagdoll": false,
+	"AntiNoRagdoll": true,
 	"AntiGodmode": true,
 	"CheckTeleport": false,
-	"CheckWeapons": true
+	"CheckWeapons": true,
+	"CheckClothes": false
 }

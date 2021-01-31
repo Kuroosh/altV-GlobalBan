@@ -1,0 +1,6 @@
+obj/
+.vs/
+.Proofs/
+bin/
+Properties/
+Core/

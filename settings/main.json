@@ -1,6 +1,8 @@
 {
-	"GlobalBanSystemActive": true,
-	"AnticheatSystemActive": true,
-	"Username": "YOUR_USERNAME",
-	"Password": "YOUR_PASSWORD"
+    "GlobalBanSystemActive": true,
+    "AnticheatSystemActive": true,
+    "Username": "YOUR_USERNAME",
+    "Password": "YOUR_PASSWORD",
+	"VPNSystemActive": false,
+	"VPNKey": "YOUR_VPN_KEY [GET YOUR ONE : https://iphub.info ]"
 }
