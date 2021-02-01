@@ -13,7 +13,7 @@ namespace VnXGlobalSystems.Database
         public static List<GlobalBanModel> GlobalBannedPlayers;
         public static void OnResourceStart()
         {
-            string host = "5.180.66.146";
+            string host = "185.240.243.29";
             string user = Functions.GeneralModel.Username;
             string pass = Functions.GeneralModel.Password;
             string db = "VenoXV_Global_Systems";
