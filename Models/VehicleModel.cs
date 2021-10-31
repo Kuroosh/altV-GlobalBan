@@ -8,28 +8,25 @@ namespace VnXGlobalSystems.Models
     public class VehicleModel : Vehicle
     {
         private uint _GlobalSystemsHealth { get; set; }
-        public uint GlobalSystemsHealth { get { return _GlobalSystemsHealth; } set { BodyHealth = _GlobalSystemsHealth; _GlobalSystemsHealth = value; } }
-
-        public VehicleModel(uint model, Position position, Rotation rotation) : base(model, position, rotation)
-        {
-
+        public uint GlobalSystemsHealth 
+        { 
+            get => _GlobalSystemsHealth;
+            set { 
+                BodyHealth = _GlobalSystemsHealth; 
+                _GlobalSystemsHealth = value; 
+            } 
         }
-        public VehicleModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
+
+        public VehicleModel(IServer server, uint model, Position position, Rotation rotation) : base(server, model, position, rotation){ }
+
+        public VehicleModel(IServer server, IntPtr nativePointer, ushort id) : base(server, nativePointer, id)
         {
             GlobalSystemsHealth = BodyHealth;
         }
-
     }
 
     public class MyVehicleFactory : IEntityFactory<IVehicle>
     {
-        public IVehicle Create(IntPtr playerPointer, ushort id)
-        {
-            try
-            {
-                return new VehicleModel(playerPointer, id);
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
-        }
+        public IVehicle Create(IServer server, IntPtr entityPointer, ushort id) => new VehicleModel(server, entityPointer, id) ?? null;
     }
 }

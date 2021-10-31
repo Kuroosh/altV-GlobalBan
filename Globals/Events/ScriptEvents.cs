@@ -13,8 +13,11 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                if (Functions.GeneralModel.VPNSystemActive) Core.Main.CheckIP(player);
-                if (Functions.AnticheatModel.CheckClothes) player.Emit("VnXGlobalSystemsClient:SyncClothes", true);
+                if (Functions.GeneralModel.VPNSystemActive) 
+                    Core.Main.CheckIP(player);
+                if (Functions.AnticheatModel.CheckClothes) 
+                    player.Emit("VnXGlobalSystemsClient:SyncClothes", true);
+                
                 player.Emit("VnXGlobalSystemsClient:GetDiscordID");
                 Functions.CheckPlayerGlobalBans(player);
                 Main.ConnectedPlayers.Add(player);
@@ -42,10 +45,15 @@ namespace VnXGlobalSystems.Globals
             {
                 if (!Functions.AnticheatModel.AntiGodmode) return;
                 if (entity is null || !entity.Exists) return;
-                if (entity is PlayerModel target)
-                    WeaponSync.WeaponDamage(player, target, weapon, dmg, offset, bodypart);
-                else if (entity is VehicleModel vehicle)
-                    WeaponSync.OnVehicleDamage(player, vehicle, weapon);
+                switch (entity)
+                {
+                    case PlayerModel target:
+                        WeaponSync.WeaponDamage(player, target, weapon, dmg, offset, bodypart);
+                        break;
+                    case VehicleModel vehicle:
+                        WeaponSync.OnVehicleDamage(player, vehicle, weapon);
+                        break;
+                }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -56,11 +64,9 @@ namespace VnXGlobalSystems.Globals
             try
             {
                 player.EventCallCounter++;
-                if (player.EventCallCounter >= Constants.PLAYER_KICK_AFTER_EMITS)
-                {
-                    Core.Debug.WriteLogs("Events", " Name : " + player.Name + " | SCID : " + player.SocialClubId + " called Event[" + player.EventCallCounter + "] : " + EventName + " | args : " + string.Join(", ", args));
-                    Anticheat.Main.CheckEmits(player);
-                }
+                if (player.EventCallCounter < Constants.PLAYER_KICK_AFTER_EMITS) return;
+                Core.Debug.WriteLogs("Events", " Name : " + player.Name + " | SCID : " + player.SocialClubId + " called Event[" + player.EventCallCounter + "] : " + EventName + " | args : " + string.Join(", ", args));
+                Anticheat.Main.CheckEmits(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

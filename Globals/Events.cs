@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using VnXGlobalSystems.Models;
 
@@ -28,6 +29,7 @@ namespace VnXGlobalSystems.Globals
         public static void LoadPrivacyAccounts()
         {
             List<PrivacyModel> privacyClasses = JsonConvert.DeserializeObject<List<PrivacyModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/settings/privacy.json"));
+            if (privacyClasses is null) return;
             if (privacyClasses.Count <= 0) return;
             foreach (PrivacyModel privacyUser in privacyClasses)
                 Constants.PrivacyAcceptedPlayers.Add(privacyUser);
@@ -36,9 +38,7 @@ namespace VnXGlobalSystems.Globals
         {
             try
             {
-                foreach (PrivacyModel privacyClass in Constants.PrivacyAcceptedPlayers)
-                    if (privacyClass.HardwareId == player.HardwareIdHash.ToString() || privacyClass.HardwareIdExHash == player.HardwareIdExHash.ToString() || privacyClass.IP == player.Ip.ToString() || privacyClass.SocialID == player.SocialClubId.ToString()) return true;
-                return false;
+                return Constants.PrivacyAcceptedPlayers.Any(privacyClass => privacyClass.HardwareId == player.HardwareIdHash.ToString() || privacyClass.HardwareIdExHash == player.HardwareIdExHash.ToString() || privacyClass.IP == player.Ip.ToString() || privacyClass.SocialID == player.SocialClubId.ToString());
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }

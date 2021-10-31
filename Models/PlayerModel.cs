@@ -43,7 +43,8 @@ namespace VnXGlobalSystems.Models
         public int Team { get; set; }
         public string DiscordID { get; set; }
         public int EventCallCounter { get; set; }
-        public PlayerModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
+
+        public PlayerModel(IServer server, IntPtr nativePointer, ushort id) : base(server, nativePointer, id)
         {
             try
             {
@@ -71,12 +72,9 @@ namespace VnXGlobalSystems.Models
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
+
     public class MyPlayerFactory : IEntityFactory<IPlayer>
     {
-        public IPlayer Create(IntPtr playerPointer, ushort id)
-        {
-            try { return new PlayerModel(playerPointer, id); }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
-        }
+        public IPlayer Create(IServer server, IntPtr entityPointer, ushort id) => new PlayerModel(server, entityPointer, id) ?? null;
     }
 }

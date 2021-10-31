@@ -146,8 +146,8 @@ namespace VnXGlobalSystems.Globals
             using SHA256 sha256Hash = SHA256.Create();
             byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(randomString));
             StringBuilder stringbuilder = new StringBuilder();
-            for (int i = 0; i < bytes.Length; i++)
-                stringbuilder.Append(bytes[i].ToString("x2"));
+            foreach (var t in bytes)
+                stringbuilder.Append(t.ToString("x2"));
             return stringbuilder.ToString();
         }
         public static void CheckPlayerGlobalBans(PlayerModel player)
@@ -200,14 +200,20 @@ namespace VnXGlobalSystems.Globals
             Console.ResetColor();
             Core.Debug.OutputLog("~~~~~~~~~~~~  [Weapon-Config]    ~~~~~~~~~~~~~~", ConsoleColor.Cyan);
 
-            if (WeaponModel.Headshot) Core.Debug.OutputLog("-------- Global Systems Headshot = [ON] --------", ConsoleColor.Green);
-            else Core.Debug.OutputLog("-------- Global Systems Headshot = [OFF] --------", ConsoleColor.Red);
+            if (WeaponModel.Headshot) 
+                Core.Debug.OutputLog("-------- Global Systems Headshot = [ON] --------", ConsoleColor.Green);
+            else 
+                Core.Debug.OutputLog("-------- Global Systems Headshot = [OFF] --------", ConsoleColor.Red);
+            
+            if (WeaponModel.TeamDamage) 
+                Core.Debug.OutputLog("-------- Global Systems Team-Damage = [ON] --------", ConsoleColor.Green);
+            else 
+                Core.Debug.OutputLog("-------- Global Systems Team-Damage = [OFF] --------", ConsoleColor.Red);
 
-            if (WeaponModel.TeamDamage) Core.Debug.OutputLog("-------- Global Systems Team-Damage = [ON] --------", ConsoleColor.Green);
-            else Core.Debug.OutputLog("-------- Global Systems Team-Damage = [OFF] --------", ConsoleColor.Red);
-
-            if (WeaponModel.HeadDamage) Core.Debug.OutputLog("-------- Global Systems HeadDamage = [ON] --------", ConsoleColor.Green);
-            else Core.Debug.OutputLog("-------- Global Systems HeadDamage = [OFF] --------", ConsoleColor.Red);
+            if (WeaponModel.HeadDamage) 
+                Core.Debug.OutputLog("-------- Global Systems HeadDamage = [ON] --------", ConsoleColor.Green);
+            else 
+                Core.Debug.OutputLog("-------- Global Systems HeadDamage = [OFF] --------", ConsoleColor.Red);
 
             Constants.DamageList = new Dictionary<AltV.Net.Enums.WeaponModel, float>
             {
