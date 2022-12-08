@@ -10,7 +10,7 @@
     <PackageReference Include="AltV.Net" Version="6.1.20" />
     <PackageReference Include="AltV.Net.Async" Version="6.1.20" />
     <PackageReference Include="MySql.Data" Version="8.0.27" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
 </Project>
